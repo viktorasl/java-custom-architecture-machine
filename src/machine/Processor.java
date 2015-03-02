@@ -3,7 +3,7 @@ package machine;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class Machine {
+public class Processor {
 	
 	int mode; // Machine mode
 	int ptr; // Pages table register
@@ -16,8 +16,7 @@ public class Machine {
 	int ti; // Timer interrupt
 	
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
-	
-	public Machine() {
+	public Processor() {
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener l) {

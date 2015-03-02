@@ -21,14 +21,14 @@ import javax.swing.table.DefaultTableModel;
 public class MachineController extends JFrame {
 	
 	private static final long serialVersionUID = 3795986469706534809L;
-	private Machine machine;
+	private Processor cpu;
 	
 	public static void main(String[] argv) {
 		new MachineController();
 	}
 	
 	public MachineController() {
-		machine = new Machine();
+		cpu = new Processor();
 		
 		this.getContentPane().setLayout(new GridLayout(1, 3));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +55,7 @@ public class MachineController extends JFrame {
 		for (Register reg : Register.values()) {
 			JPanel registerPanel = new JPanel();
 			JLabel regLabel = new JLabel(reg.name().toUpperCase());
-			final JTextField regField = new JTextField(String.format("%04d", machine.getValue(reg)));
+			final JTextField regField = new JTextField(String.format("%04d", cpu.getValue(reg)));
 			registersMap.put(reg, regField);
 			regField.setEditable(false);
 			registerPanel.add(regLabel);
@@ -63,7 +63,7 @@ public class MachineController extends JFrame {
 			registersPanel.add(registerPanel);
 		}
 		
-		machine.addPropertyChangeListener(new PropertyChangeListener() {
+		cpu.addPropertyChangeListener(new PropertyChangeListener() {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -76,14 +76,14 @@ public class MachineController extends JFrame {
 		new Timer().schedule(new TimerTask() {          
 		    @Override
 		    public void run() {
-		        machine.setPtr(23);    
+		    	cpu.setPtr(23);    
 		    }
 		}, 2000);
 		
 		new Timer().schedule(new TimerTask() {          
 		    @Override
 		    public void run() {
-		        machine.setMode(1);  
+		    	cpu.setMode(1);  
 		    }
 		}, 2000);
 		

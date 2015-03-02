@@ -22,6 +22,7 @@ public class MachineController extends JFrame {
 	
 	private static final long serialVersionUID = 3795986469706534809L;
 	private Processor cpu;
+	private OperativeMemory ram;
 	
 	public static void main(String[] argv) {
 		new MachineController();
@@ -29,6 +30,7 @@ public class MachineController extends JFrame {
 	
 	public MachineController() {
 		cpu = new Processor();
+		ram = new OperativeMemory(999, 10);
 		
 		this.getContentPane().setLayout(new GridLayout(1, 3));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

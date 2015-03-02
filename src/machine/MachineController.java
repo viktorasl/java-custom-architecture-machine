@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,15 +30,15 @@ public class MachineController extends JFrame {
 		cpu = new Processor();
 		ram = new OperativeMemory(999, 10);
 		
-		this.getContentPane().setLayout(new GridLayout(1, 3));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Real Machine");
-		this.setSize(500, 300);
+		getContentPane().setLayout(new GridLayout(1, 3));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Real Machine");
+		setSize(500, 300);
 		
 		initializeMemoryTable();
 		initializeRegisters();
 		
-		this.setVisible(true);
+		setVisible(true);
 		
 		demo();
 	}
@@ -49,7 +48,7 @@ public class MachineController extends JFrame {
 		final DefaultTableModel table = new MemoryTable(columnNames, 0);
 		final JTable dataTable = new JTable(table);
 		JScrollPane scrollPane = new JScrollPane(dataTable);
-		this.getContentPane().add(scrollPane);
+		getContentPane().add(scrollPane);
 		
 		ram.addOperativeMemoryChangeListener(new OperativeMemoryChangeListener() {
 			
@@ -89,7 +88,7 @@ public class MachineController extends JFrame {
 			
 		});
 		
-		this.getContentPane().add(registersPanel);
+		getContentPane().add(registersPanel);
 	}
 	
 	private void demo() {

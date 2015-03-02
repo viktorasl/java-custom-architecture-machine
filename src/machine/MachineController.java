@@ -3,7 +3,6 @@ package machine;
 import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +40,8 @@ public class MachineController extends JFrame {
 		initializeRegisters();
 		
 		this.setVisible(true);
+		
+		demo();
 	}
 	
 	private void initializeMemoryTable() {
@@ -54,20 +55,12 @@ public class MachineController extends JFrame {
 			
 			@Override
 			public void memoryChanged(int track, int idx, String value) {
-				table.removeRow(track * 10 + idx);
-				table.insertRow(track * 10 + idx, new Object[]{track * 10 + idx, value});
+				int i = track * ram.getTrackSize() + idx;
+				table.removeRow(i);
+				table.insertRow(i, new Object[]{i, value});
 			}
 			
 		});
-		
-		new Timer().schedule(new TimerTask() {          
-		    @Override
-		    public void run() {
-		    	for (int i = 0; i < 10; i++) {
-		    		ram.occupyMemory(12, i, "JE12");
-		    	}
-		    }
-		}, 4000);
 	}
 	
 	private void initializeRegisters() {
@@ -96,6 +89,19 @@ public class MachineController extends JFrame {
 			
 		});
 		
+		this.getContentPane().add(registersPanel);
+	}
+	
+	private void demo() {
+		new Timer().schedule(new TimerTask() {          
+		    @Override
+		    public void run() {
+		    	for (int i = 0; i < 10; i++) {
+		    		ram.occupyMemory(12, i, "JE12");
+		    	}
+		    }
+		}, 4000);
+		
 		new Timer().schedule(new TimerTask() {          
 		    @Override
 		    public void run() {
@@ -109,8 +115,6 @@ public class MachineController extends JFrame {
 		    	cpu.setMode(1);  
 		    }
 		}, 2000);
-		
-		this.getContentPane().add(registersPanel);
 	}
 	
 }

@@ -37,16 +37,37 @@ public class MachineController extends JFrame {
 		this.setTitle("Real Machine");
 		this.setSize(500, 300);
 		
-		// initializing files list table
-		String[] columnNames = {"Address", "Content"};
-		DefaultTableModel table = new MemoryTable(columnNames, 0);
-		JTable dataTable = new JTable(table);
-		JScrollPane scrollPane = new JScrollPane(dataTable);
-		this.getContentPane().add(scrollPane);
-		
+		initializeMemoryTable();
 		initializeRegisters();
 		
 		this.setVisible(true);
+	}
+	
+	private void initializeMemoryTable() {
+		String[] columnNames = {"Address", "Content"};
+		final DefaultTableModel table = new MemoryTable(columnNames, 0);
+		final JTable dataTable = new JTable(table);
+		JScrollPane scrollPane = new JScrollPane(dataTable);
+		this.getContentPane().add(scrollPane);
+		
+		ram.addOperativeMemoryChangeListener(new OperativeMemoryChangeListener() {
+			
+			@Override
+			public void memoryChanged(int track, int idx, String value) {
+				table.removeRow(track * 10 + idx);
+				table.insertRow(track * 10 + idx, new Object[]{track * 10 + idx, value});
+			}
+			
+		});
+		
+		new Timer().schedule(new TimerTask() {          
+		    @Override
+		    public void run() {
+		    	for (int i = 0; i < 10; i++) {
+		    		ram.occupyMemory(12, i, "JE12");
+		    	}
+		    }
+		}, 4000);
 	}
 	
 	private void initializeRegisters() {

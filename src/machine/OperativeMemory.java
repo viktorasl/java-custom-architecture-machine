@@ -15,6 +15,13 @@ public class OperativeMemory {
 		this.memChangeListeners = new ArrayList<OperativeMemoryChangeListener>();
 	}
 	
+	public void occupyMemory(int track, int idx, String value) {
+		this.memory[track * this.trackSize + idx] = value;
+		for (OperativeMemoryChangeListener l : memChangeListeners) {
+			l.memoryChanged(track, idx, value);
+		}
+	}
+	
 	public void addOperativeMemoryChangeListener(OperativeMemoryChangeListener l) {
 		memChangeListeners.add(l);
 	}

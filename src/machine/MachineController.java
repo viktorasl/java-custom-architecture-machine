@@ -95,13 +95,25 @@ public class MachineController extends JFrame {
 		int addr = cpu.getValue(Register.PC);
 		int track = addr / 10;
 		int idx = addr % 10;
+		System.out.println(track + " " + idx);
 		String cmd = ram.getMemory(track, idx);
 		cpu.interpretCmd(cmd);
+		System.out.println(cmd);
 	}
 	
 	private void demo() {
 		
-		step();
+		ram.occupyMemory(1, 1, "GO000");
+		
+		 Timer timer = new Timer();
+		 timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				step();
+			}
+			
+		}, 1000, 1000);
 		
 		new Timer().schedule(new TimerTask() {          
 		    @Override

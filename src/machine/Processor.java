@@ -41,8 +41,24 @@ public class Processor {
 		changes.firePropertyChange(Register.PC.name(), pc, ++pc);
 	}
 	
+	public void setPc(int pc) {
+		if (this.pc != pc) {
+			changes.firePropertyChange(Register.PC.name(), this.pc, pc);
+			this.pc = pc;
+		}
+	}
+	
 	public void interpretCmd(String cmd) {
 		incPc();
+		
+		if (cmd != null) {
+			switch(cmd.substring(0, 2)) {
+				case "GO": {
+					setPc(Integer.parseInt(cmd.substring(2, 3)));
+					break;
+				}
+			}
+		}
 	}
 	
 	public int getValue(Register reg) {

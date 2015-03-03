@@ -28,7 +28,7 @@ public class MachineController extends JFrame {
 	
 	public MachineController() {
 		cpu = new Processor();
-		ram = new OperativeMemory(999, 10);
+		ram = new OperativeMemory(100, 10);
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +91,18 @@ public class MachineController extends JFrame {
 		getContentPane().add(registersPanel);
 	}
 	
+	public void step() {
+		int addr = cpu.getValue(Register.PC);
+		int track = addr / 10;
+		int idx = addr % 10;
+		String cmd = ram.getMemory(track, idx);
+		cpu.interpretCmd(cmd);
+	}
+	
 	private void demo() {
+		
+		step();
+		
 		new Timer().schedule(new TimerTask() {          
 		    @Override
 		    public void run() {

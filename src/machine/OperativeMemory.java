@@ -22,6 +22,10 @@ public class OperativeMemory {
 		}
 	}
 	
+	public String getMemory(int track, int idx) {
+		return memory[track * this.trackSize + idx];
+	}
+	
 	public void addOperativeMemoryChangeListener(OperativeMemoryChangeListener l) {
 		memChangeListeners.add(l);
 	}

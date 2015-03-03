@@ -37,6 +37,14 @@ public class Processor {
 		}
 	}
 	
+	public void incPc() {
+		changes.firePropertyChange(Register.PC.name(), pc, ++pc);
+	}
+	
+	public void interpretCmd(String cmd) {
+		incPc();
+	}
+	
 	public int getValue(Register reg) {
 		switch (reg) {
 			case CF: return cf;

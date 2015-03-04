@@ -9,11 +9,13 @@ public class MemoryTable extends DefaultTableModel {
 	 */
 	private static final long serialVersionUID = -8052788013480634187L;
 
-	public MemoryTable(String[] columnNames, int i){
-		super(columnNames, i);
+	public MemoryTable(String[] columnNames, OperativeMemory ram){
+		super(columnNames, 0);
 		
-		for (int idx = 0; idx < 1000;idx++) {
-			this.addRow(new Object[]{idx, "0"});
+		for (int i = 0; i < ram.getTracksCount(); i++) {
+			for (int j = 0; j < ram.getTrackSize(); j++) {
+				this.addRow(new Object[]{i * ram.getTrackSize() + j, ram.getMemory(i, j)});
+			}
 		}
 	}
 	

@@ -1,6 +1,8 @@
 package machine;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,8 +30,8 @@ public class MachineController extends JFrame {
 	}
 	
 	public MachineController() {
-		cpu = new Processor();
 		ram = new OperativeMemory(100, 10);
+		cpu = new Processor(ram);
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +48,7 @@ public class MachineController extends JFrame {
 	
 	private void initializeMemoryTable() {
 		String[] columnNames = {"Address", "Content"};
-		final DefaultTableModel table = new MemoryTable(columnNames, 0);
+		final DefaultTableModel table = new MemoryTable(columnNames, ram);
 		final JTable dataTable = new JTable(table);
 		JScrollPane scrollPane = new JScrollPane(dataTable);
 		getContentPane().add(scrollPane);
@@ -70,7 +73,7 @@ public class MachineController extends JFrame {
 		for (Register reg : Register.values()) {
 			JPanel registerPanel = new JPanel();
 			JLabel regLabel = new JLabel(reg.name().toUpperCase());
-			final JTextField regField = new JTextField(String.format(reg.format(), cpu.getValue(reg)));
+			final JTextField regField = new JTextField(cpu.getValue(reg));
 			registersMap.put(reg, regField);
 			regField.setEditable(false);
 			registerPanel.add(regLabel);
@@ -83,16 +86,27 @@ public class MachineController extends JFrame {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				Register reg = Register.valueOf(evt.getPropertyName());
-				registersMap.get(reg).setText(String.format(reg.format(), (int)evt.getNewValue()));
+				registersMap.get(reg).setText((String)evt.getNewValue());
 			}
 			
 		});
+		
+		JButton stepButton = new JButton("Step");
+		stepButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				step();
+			}
+			
+		});
+		registersPanel.add(stepButton);
 		
 		getContentPane().add(registersPanel);
 	}
 	
 	public void step() {
-		int addr = cpu.getValue(Register.PC);
+		int addr = Integer.parseInt(cpu.getValue(Register.PC));
 		int track = addr / 10;
 		int idx = addr % 10;
 		System.out.println(track + " " + idx);
@@ -105,15 +119,15 @@ public class MachineController extends JFrame {
 		
 		ram.occupyMemory(1, 1, "GO000");
 		
-		 Timer timer = new Timer();
-		 timer.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				step();
-			}
-			
-		}, 1000, 1000);
+//		 Timer timer = new Timer();
+//		 timer.schedule(new TimerTask() {
+//			
+//			@Override
+//			public void run() {
+//				step();
+//			}
+//			
+//		}, 1000, 1000);
 		
 		new Timer().schedule(new TimerTask() {          
 		    @Override
@@ -127,14 +141,14 @@ public class MachineController extends JFrame {
 		new Timer().schedule(new TimerTask() {          
 		    @Override
 		    public void run() {
-		    	cpu.setPtr(23);    
+		    	cpu.setPtr("23");    
 		    }
 		}, 2000);
 		
 		new Timer().schedule(new TimerTask() {          
 		    @Override
 		    public void run() {
-		    	cpu.setMode(1);  
+		    	cpu.setMode("1");  
 		    }
 		}, 2000);
 	}

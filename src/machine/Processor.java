@@ -5,32 +5,45 @@ import java.beans.PropertyChangeSupport;
 
 public class Processor {
 	
-	int mode; // Machine mode
-	int ptr; // Pages table register
-	int gr; // General register
-	int pc; // Program counter
-	int ih; // Interrupt handler
-	int cf; // Carry flag
-	int pi; // Programming interrupt
-	int si; // Supervisor interrupt
-	int ti; // Timer interrupt
+	String mode; // Machine mode
+	String ptr; // Pages table register
+	String gr; // General register
+	String pc; // Program counter
+	String ih; // Interrupt handler
+	String cf; // Carry flag
+	String pi; // Programming interrupt
+	String si; // Supervisor interrupt
+	String ti; // Timer interrupt
+	OperativeMemory ram;
 	
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
-	public Processor() {
+	
+	public Processor(OperativeMemory ram) {
+		this.ram = ram;
+		
+		this.mode = "0";
+		this.ptr = "000";
+		this.gr = "00000";
+		this.pc = "000";
+		this.ih = "000";
+		this.cf = "0";
+		this.pi = "0";
+		this.si = "0";
+		this.ti = "0";
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener l) {
 		changes.addPropertyChangeListener(l);
 	}
 	
-	public void setMode(int mode) {
+	public void setMode(String mode) {
 		if (this.mode != mode) {
 			changes.firePropertyChange(Register.Mode.name(), this.mode, mode);
 			this.mode = mode;
 		}
 	}
 	
-	public void setPtr(int ptr) {
+	public void setPtr(String ptr) {
 		if (this.ptr != ptr) {
 			changes.firePropertyChange(Register.PTR.name(), this.ptr, ptr);
 			this.ptr = ptr;
@@ -38,10 +51,12 @@ public class Processor {
 	}
 	
 	public void incPc() {
-		changes.firePropertyChange(Register.PC.name(), pc, ++pc);
+		int i = Integer.parseInt(pc);
+		changes.firePropertyChange(Register.PC.name(), i, i++);
+		pc = String.valueOf(i++);
 	}
 	
-	public void setPc(int pc) {
+	public void setPc(String pc) {
 		if (this.pc != pc) {
 			changes.firePropertyChange(Register.PC.name(), this.pc, pc);
 			this.pc = pc;
@@ -54,14 +69,14 @@ public class Processor {
 		if (cmd != null) {
 			switch(cmd.substring(0, 2)) {
 				case "GO": {
-					setPc(Integer.parseInt(cmd.substring(2, 3)));
+					setPc(cmd.substring(2, 3));
 					break;
 				}
 			}
 		}
 	}
 	
-	public int getValue(Register reg) {
+	public String getValue(Register reg) {
 		switch (reg) {
 			case CF: return cf;
 			case GR: return gr;
@@ -73,7 +88,7 @@ public class Processor {
 			case SI: return si;
 			case TI: return ti;
 		}
-		return 0;
+		return null;
 	}
 	
 }

@@ -52,6 +52,14 @@ public class Processor {
 		}
 	}
 	
+	private void setGr(String gr) {
+		String formattedVal = format(gr, 5);
+		if (! this.gr.equalsIgnoreCase(formattedVal)) {
+			changes.firePropertyChange(Register.GR.name(), this.gr, formattedVal);
+			this.gr = formattedVal;
+		}
+	}
+	
 	private void setPtr(String ptr) {
 		if (this.ptr != ptr) {
 			changes.firePropertyChange(Register.PTR.name(), this.ptr, ptr);
@@ -82,6 +90,14 @@ public class Processor {
 		}
 	}
 	
+	private String getValueInAddress(String addr) {
+		int a1 = Character.getNumericValue(addr.charAt(0));
+		int a2 = Character.getNumericValue(addr.charAt(1));
+		int a3 = Character.getNumericValue(addr.charAt(2));
+		int track = a1 * 10 + a2;
+		return ram.getMemory(track, a3);
+	}
+	
 	private void interpretCmd(String cmd) {
 		incPc();
 		
@@ -91,6 +107,10 @@ public class Processor {
 					String addr = buildAddress(cmd.substring(2, 5));
 					setPc(addr);
 					break;
+				}
+				case "MG": {
+					String addr = buildAddress(cmd.substring(2, 5));
+					setGr(getValueInAddress(addr));
 				}
 			}
 		} catch (Exception e) {
@@ -117,10 +137,8 @@ public class Processor {
 		int a1 = Character.getNumericValue(pc.charAt(0));
 		int a2 = Character.getNumericValue(pc.charAt(1));
 		int a3 = Character.getNumericValue(pc.charAt(2));
-		int track = a1 * 10 + a2;
-		int idx = a3;
-		String cmd = ram.getMemory(track, idx);
-		System.out.println(a1 * 10 + "" + a2 + ":" + idx + "\t" + cmd);
+		String cmd = getValueInAddress(pc);
+		System.out.println(a1 * 10 + "" + a2 + ":" + a3 + "\t" + cmd);
 		interpretCmd(cmd);
 	}
 }

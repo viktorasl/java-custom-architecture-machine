@@ -36,6 +36,15 @@ public class Processor {
 		changes.addPropertyChangeListener(l);
 	}
 	
+	private String format(String s, int l) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < l - s.length(); i++) {
+			sb.append("0");
+		}
+		sb.append(s);
+		return sb.toString();
+	}
+	
 	public void setMode(String mode) {
 		if (this.mode != mode) {
 			changes.firePropertyChange(Register.Mode.name(), this.mode, mode);
@@ -50,17 +59,18 @@ public class Processor {
 		}
 	}
 	
+	public void setPc(String pc) {
+		String formattedVal = format(pc, 3);
+		if (! this.pc.equalsIgnoreCase(formattedVal)) {
+			changes.firePropertyChange(Register.PC.name(), this.pc, formattedVal);
+			this.pc = formattedVal;
+		}
+	}
+	
 	public void incPc() {
 		int i = Integer.parseInt(pc);
 		changes.firePropertyChange(Register.PC.name(), i, i++);
-		pc = String.valueOf(i++);
-	}
-	
-	public void setPc(String pc) {
-		if (this.pc != pc) {
-			changes.firePropertyChange(Register.PC.name(), this.pc, pc);
-			this.pc = pc;
-		}
+		setPc(String.valueOf(i++));
 	}
 	
 	public void interpretCmd(String cmd) {
@@ -91,4 +101,14 @@ public class Processor {
 		return null;
 	}
 	
+	public void step() {
+		int a1 = Character.getNumericValue(pc.charAt(0));
+		int a2 = Character.getNumericValue(pc.charAt(1));
+		int a3 = Character.getNumericValue(pc.charAt(2));
+		int track = a1 * 10 + a2;
+		int idx = a3;
+		String cmd = ram.getMemory(track, idx);
+		System.out.println(a1 * 10 + "" + a2 + ":" + idx + "\t" + cmd);
+		interpretCmd(cmd);
+	}
 }

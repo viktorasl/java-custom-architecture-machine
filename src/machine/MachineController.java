@@ -96,23 +96,13 @@ public class MachineController extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				step();
+				cpu.step();
 			}
 			
 		});
 		registersPanel.add(stepButton);
 		
 		getContentPane().add(registersPanel);
-	}
-	
-	public void step() {
-		int addr = Integer.parseInt(cpu.getValue(Register.PC));
-		int track = addr / 10;
-		int idx = addr % 10;
-		System.out.println(track + " " + idx);
-		String cmd = ram.getMemory(track, idx);
-		cpu.interpretCmd(cmd);
-		System.out.println(cmd);
 	}
 	
 	private void demo() {

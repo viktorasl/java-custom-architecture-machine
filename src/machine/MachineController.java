@@ -107,7 +107,7 @@ public class MachineController extends JFrame {
 	
 	private void demo() {
 		
-		ram.occupyMemory(1, 1, "GO000");
+		ram.occupyMemory(1, 1, "GO006");
 		
 //		 Timer timer = new Timer();
 //		 timer.schedule(new TimerTask() {
@@ -127,20 +127,6 @@ public class MachineController extends JFrame {
 		    	}
 		    }
 		}, 4000);
-		
-		new Timer().schedule(new TimerTask() {          
-		    @Override
-		    public void run() {
-		    	cpu.setPtr("23");    
-		    }
-		}, 2000);
-		
-		new Timer().schedule(new TimerTask() {          
-		    @Override
-		    public void run() {
-		    	cpu.setMode("1");  
-		    }
-		}, 2000);
 	}
 	
 }

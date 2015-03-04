@@ -22,7 +22,7 @@ public class Processor {
 		this.ram = ram;
 		
 		this.mode = "0";
-		this.ptr = "000";
+		this.ptr = "00";
 		this.gr = "00000";
 		this.pc = "000";
 		this.ih = "000";
@@ -45,21 +45,21 @@ public class Processor {
 		return sb.toString();
 	}
 	
-	public void setMode(String mode) {
+	private void setMode(String mode) {
 		if (this.mode != mode) {
 			changes.firePropertyChange(Register.Mode.name(), this.mode, mode);
 			this.mode = mode;
 		}
 	}
 	
-	public void setPtr(String ptr) {
+	private void setPtr(String ptr) {
 		if (this.ptr != ptr) {
 			changes.firePropertyChange(Register.PTR.name(), this.ptr, ptr);
 			this.ptr = ptr;
 		}
 	}
 	
-	public void setPc(String pc) {
+	private void setPc(String pc) {
 		String formattedVal = format(pc, 3);
 		if (! this.pc.equalsIgnoreCase(formattedVal)) {
 			changes.firePropertyChange(Register.PC.name(), this.pc, formattedVal);
@@ -67,22 +67,34 @@ public class Processor {
 		}
 	}
 	
-	public void incPc() {
+	private void incPc() {
 		int i = Integer.parseInt(pc);
 		changes.firePropertyChange(Register.PC.name(), i, i++);
 		setPc(String.valueOf(i++));
 	}
 	
-	public void interpretCmd(String cmd) {
+	private String buildAddress(String addr) {
+		if (this.mode.equalsIgnoreCase("0")) {
+			return addr;
+		} else {
+			//TODO: paging mechanism
+			return addr;
+		}
+	}
+	
+	private void interpretCmd(String cmd) {
 		incPc();
 		
-		if (cmd != null) {
+		try {
 			switch(cmd.substring(0, 2)) {
 				case "GO": {
-					setPc(cmd.substring(2, 3));
+					String addr = buildAddress(cmd.substring(2, 5));
+					setPc(addr);
 					break;
 				}
 			}
+		} catch (Exception e) {
+			System.out.println("Invalid command");
 		}
 	}
 	

@@ -122,17 +122,17 @@ public class Processor {
 						setIh(value);
 						return;
 					}
+					case "SP": {
+						int value = buildAddress(cmd.substring(2, 5));
+						setSp(value);
+						return;
+					}
 				}
 				
 				switch(cmd.substring(0, 3)) {
 					case "STI": {
 						int value = buildAddress(cmd.substring(3, 5));
 						setTi(value);
-						return;
-					}
-					case "SSP": {
-						int value = buildAddress(cmd.substring(3, 5));
-						setSp(value);
 						return;
 					}
 				}
@@ -232,6 +232,7 @@ public class Processor {
 			case Mode: return mode;
 			case PC: return pc;
 			case PI: return pi;
+			case SP: return sp;
 			case PTR: return ptr;
 			case SI: return si;
 			case TI: return ti;

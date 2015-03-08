@@ -109,7 +109,7 @@ public class MachineController extends JFrame {
 		
 		ram.occupyMemory(0, 0, "IH990");
 		ram.occupyMemory(0, 1, "STI12");
-		ram.occupyMemory(0, 2, "SSP80");
+		ram.occupyMemory(0, 2, "SP800");
 		ram.occupyMemory(0, 3, "SMOD1");
 		
 		ram.occupyMemory(2, 9, "GO006");

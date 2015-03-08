@@ -110,6 +110,7 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(1, 1, "GO006");
 		ram.occupyMemory(0, 5, "MG030");
 		ram.occupyMemory(0, 6, "MM031");
+		ram.occupyMemory(0, 7, "GV099");
 		ram.occupyMemory(3, 0, "00123");
 		
 //		 Timer timer = new Timer();

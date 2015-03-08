@@ -92,6 +92,10 @@ public class Processor {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					ram.occupyMemory(addr / 10, addr % 10, String.valueOf(this.gr));
 				}
+				case "GV": {
+					int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					setGr(value);
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid command");

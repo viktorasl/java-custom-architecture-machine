@@ -47,6 +47,13 @@ public class Processor {
 		}
 	}
 	
+	private void setIh(int ih) {
+		if (this.ih != ih) {
+			changes.firePropertyChange(Register.IH.name(), this.ih, ih);
+			this.ih = ih;
+		}
+	}
+	
 	private void setPtr(int ptr) {
 		if (this.ptr != ptr) {
 			changes.firePropertyChange(Register.PTR.name(), this.ptr, ptr);
@@ -143,6 +150,11 @@ public class Processor {
 					if (this.cf == 1) {
 						setPc(addr);
 					}
+					break;
+				}
+				case "IH": {
+					int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					setIh(value);
 					break;
 				}
 			}

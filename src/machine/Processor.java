@@ -95,6 +95,12 @@ public class Processor {
 		return ram.getMemory(track, idx);
 	}
 	
+	private void test() {
+		if ((si + pi > 0) || (ti == 0)) {
+			setPc(ih);
+		}
+	}
+	
 	private void interpretCmd(String cmd) {
 		incPc();
 		
@@ -184,6 +190,10 @@ public class Processor {
 			setTi(Math.max(ti - cmdLength, 0));
 		} catch (Exception e) {
 			System.out.println(((mode == 0)? "Supervisor" : "User") + ": Invalid command");
+		}
+		
+		if (mode == 1) {
+			test();
 		}
 	}
 	

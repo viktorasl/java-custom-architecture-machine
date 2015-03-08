@@ -15,27 +15,12 @@ public class OperativeMemory {
 		this.tracksCount = tracksCount;
 		this.memory = new String[tracksCount * trackSize];
 		this.memChangeListeners = new ArrayList<OperativeMemoryChangeListener>();
-		
-		for (int i = 0; i < tracksCount; i++) {
-			for (int j = 0; j < trackSize; j++) {
-				occupyMemory(i, j, "");
-			}
-		}
 	}
-	
-	private String format(String s) {
-		StringBuilder sb = new StringBuilder(s);
-		for (int i = 0; i < 5 - s.length(); i++) {
-			sb.append("0");
-		}
-		return sb.toString();
-	}
-	
+
 	public void occupyMemory(int track, int idx, String value) {
-		String formattedVal = format(value);
-		this.memory[track * this.trackSize + idx] = formattedVal;
+		this.memory[track * this.trackSize + idx] = value;
 		for (OperativeMemoryChangeListener l : memChangeListeners) {
-			l.memoryChanged(track, idx, formattedVal);
+			l.memoryChanged(track, idx, value);
 		}
 	}
 	

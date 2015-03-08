@@ -73,7 +73,6 @@ public class MachineController extends JFrame {
 		for (Register reg : Register.values()) {
 			JPanel registerPanel = new JPanel();
 			JLabel regLabel = new JLabel(reg.name().toUpperCase());
-			System.out.println(cpu.getValue(reg));
 			final JTextField regField = new JTextField(String.format("%5d", cpu.getValue(reg)));
 			registersMap.put(reg, regField);
 			regField.setEditable(false);

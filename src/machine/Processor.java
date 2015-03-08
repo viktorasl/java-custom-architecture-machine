@@ -97,6 +97,7 @@ public class Processor {
 	
 	private void test() {
 		if ((si + pi > 0) || (ti == 0)) {
+			setMode(0);
 			setPc(ih);
 		}
 	}
@@ -118,6 +119,13 @@ public class Processor {
 					case "STI": {
 						int value = Integer.parseInt(buildAddress(cmd.substring(3, 5)));
 						setTi(value);
+						return;
+					}
+				}
+				switch(cmd.substring(0, 4)) {
+					case "SMOD": {
+						int value = Integer.parseInt(buildAddress(cmd.substring(4, 5)));
+						setMode(value);
 						return;
 					}
 				}

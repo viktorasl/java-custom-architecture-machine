@@ -89,12 +89,12 @@ public class Processor {
 		setPc(this.pc + 1);
 	}
 	
-	private String buildAddress(String addr) {
+	private int buildAddress(String addr) {
 		if (this.mode == 0) {
-			return addr;
+			return Integer.parseInt(addr);
 		} else {
 			//TODO: paging mechanism
-			return addr;
+			return Integer.parseInt(addr);
 		}
 	}
 	
@@ -118,7 +118,7 @@ public class Processor {
 			if (mode == 0) {
 				switch(cmd.substring(0, 2)) {
 					case "IH": {
-						int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+						int value = buildAddress(cmd.substring(2, 5));
 						setIh(value);
 						return;
 					}
@@ -126,12 +126,12 @@ public class Processor {
 				
 				switch(cmd.substring(0, 3)) {
 					case "STI": {
-						int value = Integer.parseInt(buildAddress(cmd.substring(3, 5)));
+						int value = buildAddress(cmd.substring(3, 5));
 						setTi(value);
 						return;
 					}
 					case "SSP": {
-						int value = Integer.parseInt(buildAddress(cmd.substring(3, 5)));
+						int value = buildAddress(cmd.substring(3, 5));
 						setSp(value);
 						return;
 					}
@@ -139,7 +139,7 @@ public class Processor {
 				
 				switch(cmd.substring(0, 4)) {
 					case "SMOD": {
-						int value = Integer.parseInt(buildAddress(cmd.substring(4, 5)));
+						int value = buildAddress(cmd.substring(4, 5));
 						setMode(value);
 						return;
 					}
@@ -150,33 +150,33 @@ public class Processor {
 			
 			switch(cmd.substring(0, 2)) {
 				case "GO": {
-					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int addr = buildAddress(cmd.substring(2, 5));
 					setPc(addr);
 					break;
 				}
 				case "MG": {
-					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int addr = buildAddress(cmd.substring(2, 5));
 					setGr(Integer.parseInt(getValueInAddress(addr)));
 					break;
 				}
 				case "MM": {
-					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int addr = buildAddress(cmd.substring(2, 5));
 					ram.occupyMemory(addr / 10, addr % 10, String.valueOf(this.gr));
 					break;
 				}
 				case "GV": {
-					int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int value = buildAddress(cmd.substring(2, 5));
 					setGr(value);
 					break;
 				}
 				case "AD": {
-					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int addr = buildAddress(cmd.substring(2, 5));
 					int value = Integer.parseInt(ram.getMemory(addr / 10, addr % 10));
 					setGr(this.gr + value);
 					break;
 				}
 				case "CP": {
-					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int addr = buildAddress(cmd.substring(2, 5));
 					int value = Integer.parseInt(ram.getMemory(addr / 10, addr % 10));
 					if (this.gr == value) {
 						setCf(0);
@@ -188,21 +188,21 @@ public class Processor {
 					break;
 				}
 				case "JE": {
-					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int addr = buildAddress(cmd.substring(2, 5));
 					if (this.cf == 0) {
 						setPc(addr);
 					}
 					break;
 				}
 				case "JL": {
-					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int addr = buildAddress(cmd.substring(2, 5));
 					if (this.cf == 2) {
 						setPc(addr);
 					}
 					break;
 				}
 				case "JG": {
-					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int addr = buildAddress(cmd.substring(2, 5));
 					if (this.cf == 1) {
 						setPc(addr);
 					}
@@ -216,6 +216,7 @@ public class Processor {
 			setTi(Math.max(ti - cmdLength, 0));
 		} catch (Exception e) {
 			System.out.println(((mode == 0)? "Supervisor" : "User") + ": Invalid command");
+			//TODO: set si / pi
 		}
 		
 		if (mode == 1) {

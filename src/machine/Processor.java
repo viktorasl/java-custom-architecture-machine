@@ -87,19 +87,23 @@ public class Processor {
 				case "MG": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					setGr(Integer.parseInt(getValueInAddress(addr)));
+					break;
 				}
 				case "MM": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					ram.occupyMemory(addr / 10, addr % 10, String.valueOf(this.gr));
+					break;
 				}
 				case "GV": {
 					int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					setGr(value);
+					break;
 				}
 				case "AD": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					int value = Integer.parseInt(ram.getMemory(addr / 10, addr % 10));
 					setGr(this.gr + value);
+					break;
 				}
 			}
 		} catch (Exception e) {

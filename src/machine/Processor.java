@@ -92,32 +92,42 @@ public class Processor {
 		incPc();
 		
 		try {
+			if (mode == 0) {
+				switch(cmd.substring(0, 2)) {
+					case "IH": {
+						int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+						setIh(value);
+						return;
+					}
+				}
+			}
+			
 			switch(cmd.substring(0, 2)) {
 				case "GO": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					setPc(addr);
-					break;
+					return;
 				}
 				case "MG": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					setGr(Integer.parseInt(getValueInAddress(addr)));
-					break;
+					return;
 				}
 				case "MM": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					ram.occupyMemory(addr / 10, addr % 10, String.valueOf(this.gr));
-					break;
+					return;
 				}
 				case "GV": {
 					int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					setGr(value);
-					break;
+					return;
 				}
 				case "AD": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					int value = Integer.parseInt(ram.getMemory(addr / 10, addr % 10));
 					setGr(this.gr + value);
-					break;
+					return;
 				}
 				case "CP": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
@@ -129,37 +139,32 @@ public class Processor {
 					} else {
 						setCf(2);
 					}
-					break;
+					return;
 				}
 				case "JE": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					if (this.cf == 0) {
 						setPc(addr);
 					}
-					break;
+					return;
 				}
 				case "JL": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					if (this.cf == 2) {
 						setPc(addr);
 					}
-					break;
+					return;
 				}
 				case "JG": {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					if (this.cf == 1) {
 						setPc(addr);
 					}
-					break;
-				}
-				case "IH": {
-					int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
-					setIh(value);
-					break;
+					return;
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid command");
+			System.out.println(((mode == 0)? "Supervisor" : "User") + ": Invalid command");
 		}
 	}
 	

@@ -73,7 +73,8 @@ public class MachineController extends JFrame {
 		for (Register reg : Register.values()) {
 			JPanel registerPanel = new JPanel();
 			JLabel regLabel = new JLabel(reg.name().toUpperCase());
-			final JTextField regField = new JTextField(cpu.getValue(reg));
+			System.out.println(cpu.getValue(reg));
+			final JTextField regField = new JTextField(String.format("%5d", cpu.getValue(reg)));
 			registersMap.put(reg, regField);
 			regField.setEditable(false);
 			registerPanel.add(regLabel);
@@ -86,7 +87,7 @@ public class MachineController extends JFrame {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				Register reg = Register.valueOf(evt.getPropertyName());
-				registersMap.get(reg).setText((String)evt.getNewValue());
+				registersMap.get(reg).setText(String.format("%5d", (int)evt.getNewValue()));
 			}
 			
 		});

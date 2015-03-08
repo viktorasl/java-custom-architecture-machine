@@ -124,6 +124,27 @@ public class Processor {
 					}
 					break;
 				}
+				case "JE": {
+					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					if (this.cf == 0) {
+						setPc(addr);
+					}
+					break;
+				}
+				case "JL": {
+					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					if (this.cf == 2) {
+						setPc(addr);
+					}
+					break;
+				}
+				case "JG": {
+					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					if (this.cf == 1) {
+						setPc(addr);
+					}
+					break;
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid command");

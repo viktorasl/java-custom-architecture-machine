@@ -54,6 +54,13 @@ public class Processor {
 		}
 	}
 	
+	private void setTi(int ti) {
+		if (this.ti != ti) {
+			changes.firePropertyChange(Register.TI.name(), this.ti, ti);
+			this.ti = ti;
+		}
+	}
+	
 	private void setPtr(int ptr) {
 		if (this.ptr != ptr) {
 			changes.firePropertyChange(Register.PTR.name(), this.ptr, ptr);
@@ -97,6 +104,14 @@ public class Processor {
 					case "IH": {
 						int value = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 						setIh(value);
+						return;
+					}
+				}
+				
+				switch(cmd.substring(0, 3)) {
+					case "STI": {
+						int value = Integer.parseInt(buildAddress(cmd.substring(3, 5)));
+						setTi(value);
 						return;
 					}
 				}

@@ -111,11 +111,11 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(99, 0, "GV001");
 		ram.occupyMemory(99, 1, "AD999");
 		ram.occupyMemory(99, 2, "MM999");
-		ram.occupyMemory(99, 2, "STI10");
-		ram.occupyMemory(99, 3, "SMOD1");
+		ram.occupyMemory(99, 3, "STI10");
+		ram.occupyMemory(99, 4, "RESTR");
 		
 		ram.occupyMemory(0, 1, "STI10");
-		ram.occupyMemory(0, 2, "SP800");
+		ram.occupyMemory(0, 2, "SP984");
 		ram.occupyMemory(0, 3, "SMOD1");
 		
 		ram.occupyMemory(2, 9, "GO006");
@@ -130,6 +130,7 @@ public class MachineController extends JFrame {
 		
 		ram.occupyMemory(3, 0, "12");
 		ram.occupyMemory(3, 2, "110");
+		
 //		 Timer timer = new Timer();
 //		 timer.schedule(new TimerTask() {
 //			

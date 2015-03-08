@@ -94,6 +94,11 @@ public class Processor {
 		setSp(sp + 1);
 	}
 	
+	private int pop() {
+		setSp(sp - 1);
+		return Integer.parseInt(ram.getMemory(sp / 10, sp % 10));
+	}
+	
 	private int buildAddress(String addr) {
 		if (this.mode == 0) {
 			return Integer.parseInt(addr);
@@ -112,16 +117,17 @@ public class Processor {
 	private void test() {
 		if ((si + pi > 0) || (ti == 0)) {
 			setMode(0);
-			push(gr);
-			push(cf);
-			push(ptr);
 			push(pc);
+			push(ptr);
+			push(cf);
+			push(gr);
 			setPc(ih);
 		}
 	}
 	
 	private void interpretCmd(String cmd) {
 		incPc();
+		int cmdLength = 1;
 		
 		try {
 			if (mode == 0) {
@@ -153,9 +159,16 @@ public class Processor {
 						return;
 					}
 				}
+				
+				if (cmd.substring(0, 5).equalsIgnoreCase("RESTR")) {
+					setGr(pop());
+					setCf(pop());
+					setPtr(pop());
+					setPc(pop());
+					setMode(1);
+					return;
+				}
 			}
-			
-			int cmdLength = 1;
 			
 			switch(cmd.substring(0, 2)) {
 				case "GO": {
@@ -222,13 +235,13 @@ public class Processor {
 				}
 			}
 			
-			setTi(Math.max(ti - cmdLength, 0));
 		} catch (Exception e) {
 			System.out.println(((mode == 0)? "Supervisor" : "User") + ": Invalid command");
 			//TODO: set si / pi
 		}
 		
 		if (mode == 1) {
+			setTi(Math.max(ti - cmdLength, 0));
 			test();
 		}
 	}

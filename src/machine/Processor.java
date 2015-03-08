@@ -40,6 +40,13 @@ public class Processor {
 		}
 	}
 	
+	private void setCf(int cf) {
+		if (this.cf != cf) {
+			changes.firePropertyChange(Register.CF.name(), this.cf, cf);
+			this.cf = cf;
+		}
+	}
+	
 	private void setPtr(int ptr) {
 		if (this.ptr != ptr) {
 			changes.firePropertyChange(Register.PTR.name(), this.ptr, ptr);
@@ -103,6 +110,18 @@ public class Processor {
 					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
 					int value = Integer.parseInt(ram.getMemory(addr / 10, addr % 10));
 					setGr(this.gr + value);
+					break;
+				}
+				case "CP": {
+					int addr = Integer.parseInt(buildAddress(cmd.substring(2, 5)));
+					int value = Integer.parseInt(ram.getMemory(addr / 10, addr % 10));
+					if (this.gr == value) {
+						setCf(0);
+					} else if (this.gr > value) {
+						setCf(1);
+					} else {
+						setCf(2);
+					}
 					break;
 				}
 			}

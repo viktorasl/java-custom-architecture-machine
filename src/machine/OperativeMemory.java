@@ -15,6 +15,12 @@ public class OperativeMemory {
 		this.tracksCount = tracksCount;
 		this.memory = new String[tracksCount * trackSize];
 		this.memChangeListeners = new ArrayList<OperativeMemoryChangeListener>();
+		
+		for (int i = 0; i < tracksCount; i++) {
+			for (int j = 0; j < trackSize; j++) {
+				occupyMemory(i, j, "0");
+			}
+		}
 	}
 
 	public void occupyMemory(int track, int idx, String value) {

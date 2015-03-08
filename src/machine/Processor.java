@@ -10,10 +10,12 @@ public class Processor {
 	int gr; // General register
 	int pc; // Program counter
 	int ih; // Interrupt handler
+	int sp; // Stack pointer
 	int cf; // Carry flag
 	int pi; // Programming interrupt
 	int si; // Supervisor interrupt
 	int ti; // Timer interrupt
+	
 	OperativeMemory ram;
 	
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
@@ -51,6 +53,13 @@ public class Processor {
 		if (this.ih != ih) {
 			changes.firePropertyChange(Register.IH.name(), this.ih, ih);
 			this.ih = ih;
+		}
+	}
+	
+	private void setSp(int sp) {
+		if (this.sp != sp) {
+			changes.firePropertyChange(Register.SP.name(), this.sp, sp);
+			this.sp = sp;
 		}
 	}
 	
@@ -121,7 +130,13 @@ public class Processor {
 						setTi(value);
 						return;
 					}
+					case "SSP": {
+						int value = Integer.parseInt(buildAddress(cmd.substring(3, 5)));
+						setSp(value);
+						return;
+					}
 				}
+				
 				switch(cmd.substring(0, 4)) {
 					case "SMOD": {
 						int value = Integer.parseInt(buildAddress(cmd.substring(4, 5)));
@@ -192,6 +207,9 @@ public class Processor {
 						setPc(addr);
 					}
 					break;
+				}
+				default: {
+					throw new Exception("Unknown command");
 				}
 			}
 			

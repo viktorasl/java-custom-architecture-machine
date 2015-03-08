@@ -6,6 +6,7 @@ public enum Register {
 	GR,
 	PC,
 	IH,
+	SP,
 	CF,
 	PI,
 	SI,

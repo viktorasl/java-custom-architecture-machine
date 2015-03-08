@@ -89,6 +89,11 @@ public class Processor {
 		setPc(this.pc + 1);
 	}
 	
+	private void push(int value) {
+		ram.occupyMemory(sp / 10, sp % 10, String.valueOf(value));
+		setSp(sp + 1);
+	}
+	
 	private int buildAddress(String addr) {
 		if (this.mode == 0) {
 			return Integer.parseInt(addr);
@@ -107,6 +112,10 @@ public class Processor {
 	private void test() {
 		if ((si + pi > 0) || (ti == 0)) {
 			setMode(0);
+			push(gr);
+			push(cf);
+			push(ptr);
+			push(pc);
 			setPc(ih);
 		}
 	}

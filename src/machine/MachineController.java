@@ -107,17 +107,18 @@ public class MachineController extends JFrame {
 	
 	private void demo() {
 		
-		ram.occupyMemory(98, 9, "0");
+		ram.occupyMemory(98, 8, "0");
 		
 		// Interrupt handler (increasing value in [999] by 1 & setting TI := 10)
-		ram.occupyMemory(99, 0, "GV001");
-		ram.occupyMemory(99, 1, "AD999");
-		ram.occupyMemory(99, 2, "MM999");
-		ram.occupyMemory(99, 3, "LDTI");
-		ram.occupyMemory(99, 4, "CP989");
-		ram.occupyMemory(99, 5, "JG997");
-		ram.occupyMemory(99, 6, "STI10");
-		ram.occupyMemory(99, 7, "SSI0");
+		ram.occupyMemory(98, 9, "GV001");
+		ram.occupyMemory(99, 0, "AD999");
+		ram.occupyMemory(99, 1, "MM999");
+		ram.occupyMemory(99, 2, "LDTI");
+		ram.occupyMemory(99, 3, "CP988");
+		ram.occupyMemory(99, 4, "JG996");
+		ram.occupyMemory(99, 5, "STI10");
+		ram.occupyMemory(99, 6, "SSI0");
+		ram.occupyMemory(99, 7, "SPI0");
 		ram.occupyMemory(99, 8, "RESTR");
 		
 		// Procedure (adding 2 to GR)
@@ -126,14 +127,14 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(2, 1, "RT");
 		
 		// Real machine setup
-		ram.occupyMemory(0, 0, "IH990");
+		ram.occupyMemory(0, 0, "IH989");
 		ram.occupyMemory(0, 1, "STI10");
 		ram.occupyMemory(0, 2, "SP984");
 		ram.occupyMemory(0, 3, "SMOD1");
 		
 		// Program
 		ram.occupyMemory(0, 4, "CL020");
-		ram.occupyMemory(0, 5, "MG030");
+		ram.occupyMemory(0, 5, "xxxxx");
 		ram.occupyMemory(0, 6, "MM031");
 		ram.occupyMemory(0, 7, "GV099");
 		ram.occupyMemory(0, 8, "AD030");

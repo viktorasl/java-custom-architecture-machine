@@ -296,6 +296,9 @@ public class Processor {
 		} catch (Exception e) {
 			System.out.println(((mode == 0)? "Supervisor" : "User") + ": Invalid command");
 			//TODO: set si / pi
+			if (mode == 1) {
+				setPi(2);
+			}
 		}
 		
 		if (mode == 1) {

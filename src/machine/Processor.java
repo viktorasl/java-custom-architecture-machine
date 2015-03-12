@@ -262,6 +262,12 @@ public class Processor {
 					}
 					break;
 				}
+				case "CL": {
+					int addr = buildAddress(cmd.substring(2, 5));
+					push(pc);
+					setPc(addr);
+					break;
+				}
 				default: {
 					throw new Exception("Unknown command");
 				}

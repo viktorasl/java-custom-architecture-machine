@@ -163,6 +163,11 @@ public class Processor {
 							setPi(value);
 							return;
 						}
+						case "SPT": {
+							int value = buildAddress(cmd.substring(3, 5));
+							setPtr(value);
+							return;
+						}
 					}
 				}
 				

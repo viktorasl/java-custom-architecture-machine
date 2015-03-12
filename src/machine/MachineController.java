@@ -107,21 +107,26 @@ public class MachineController extends JFrame {
 	
 	private void demo() {
 		
-		ram.occupyMemory(0, 0, "IH990");
+		// Interrupt handler (increasing value in [999] by 1 & setting TI := 10)
 		ram.occupyMemory(99, 0, "GV001");
 		ram.occupyMemory(99, 1, "AD999");
 		ram.occupyMemory(99, 2, "MM999");
 		ram.occupyMemory(99, 3, "STI10");
 		ram.occupyMemory(99, 4, "RESTR");
 		
+		// Procedure (adding 2 to GR)
+		ram.occupyMemory(2, 2, "2");
+		ram.occupyMemory(2, 0, "AD022");
+		ram.occupyMemory(2, 1, "RT");
+		
+		// Real machine setup
+		ram.occupyMemory(0, 0, "IH990");
 		ram.occupyMemory(0, 1, "STI10");
 		ram.occupyMemory(0, 2, "SP984");
 		ram.occupyMemory(0, 3, "SMOD1");
 		
+		// Program
 		ram.occupyMemory(0, 4, "CL020");
-		ram.occupyMemory(2, 0, "RT");
-		
-		ram.occupyMemory(2, 9, "GO006");
 		ram.occupyMemory(0, 5, "MG030");
 		ram.occupyMemory(0, 6, "MM031");
 		ram.occupyMemory(0, 7, "GV099");
@@ -130,19 +135,10 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(1, 0, "JE006");
 		ram.occupyMemory(1, 1, "JL006");
 		ram.occupyMemory(1, 2, "JG006");
+		ram.occupyMemory(2, 9, "GO006");
 		
 		ram.occupyMemory(3, 0, "12");
 		ram.occupyMemory(3, 2, "110");
-		
-//		 Timer timer = new Timer();
-//		 timer.schedule(new TimerTask() {
-//			
-//			@Override
-//			public void run() {
-//				step();
-//			}
-//			
-//		}, 1000, 1000);
 		
 		new Timer().schedule(new TimerTask() {          
 		    @Override

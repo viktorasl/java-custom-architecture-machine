@@ -182,6 +182,18 @@ public class Processor {
 						setSp(value);
 						return;
 					}
+					case "LD": {
+						String reg = cmd.substring(2, 4);
+						switch (reg) {
+							case "SI": setGr(si);
+								break;
+							case "PI": setGr(pi);
+								break;
+							case "TI": setGr(ti);
+								break;
+						}
+						return;
+					}
 				}
 				
 				switch(cmd.substring(0, 4)) {

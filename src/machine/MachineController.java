@@ -107,13 +107,18 @@ public class MachineController extends JFrame {
 	
 	private void demo() {
 		
+		ram.occupyMemory(98, 9, "0");
+		
 		// Interrupt handler (increasing value in [999] by 1 & setting TI := 10)
 		ram.occupyMemory(99, 0, "GV001");
 		ram.occupyMemory(99, 1, "AD999");
 		ram.occupyMemory(99, 2, "MM999");
-		ram.occupyMemory(99, 3, "STI10");
-		ram.occupyMemory(99, 4, "SSI0");
-		ram.occupyMemory(99, 5, "RESTR");
+		ram.occupyMemory(99, 3, "LDTI");
+		ram.occupyMemory(99, 4, "CP989");
+		ram.occupyMemory(99, 5, "JG997");
+		ram.occupyMemory(99, 6, "STI10");
+		ram.occupyMemory(99, 7, "SSI0");
+		ram.occupyMemory(99, 8, "RESTR");
 		
 		// Procedure (adding 2 to GR)
 		ram.occupyMemory(2, 2, "2");

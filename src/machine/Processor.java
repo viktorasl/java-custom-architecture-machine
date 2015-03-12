@@ -268,6 +268,10 @@ public class Processor {
 					setPc(addr);
 					break;
 				}
+				case "RT": {
+					setPc(pop());
+					break;
+				}
 				default: {
 					throw new Exception("Unknown command");
 				}

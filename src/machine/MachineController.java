@@ -112,7 +112,8 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(99, 1, "AD999");
 		ram.occupyMemory(99, 2, "MM999");
 		ram.occupyMemory(99, 3, "STI10");
-		ram.occupyMemory(99, 4, "RESTR");
+		ram.occupyMemory(99, 4, "SSI0");
+		ram.occupyMemory(99, 5, "RESTR");
 		
 		// Procedure (adding 2 to GR)
 		ram.occupyMemory(2, 2, "2");
@@ -132,7 +133,7 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(0, 7, "GV099");
 		ram.occupyMemory(0, 8, "AD030");
 		ram.occupyMemory(0, 9, "CP032");
-		ram.occupyMemory(1, 0, "JE006");
+		ram.occupyMemory(1, 0, "HT");
 		ram.occupyMemory(1, 1, "JL006");
 		ram.occupyMemory(1, 2, "JG006");
 		ram.occupyMemory(2, 9, "GO006");

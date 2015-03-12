@@ -272,6 +272,10 @@ public class Processor {
 					setPc(pop());
 					break;
 				}
+				case "HT": {
+					setSi(1);
+					break;
+				}
 				default: {
 					throw new Exception("Unknown command");
 				}

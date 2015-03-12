@@ -125,6 +125,7 @@ public class Processor {
 	private String getValueInAddress(int addr) {
 		int track = addr / 10;
 		int idx = addr % 10;
+		ram.markMemory(track, idx);
 		return ram.getMemory(track, idx);
 	}
 	

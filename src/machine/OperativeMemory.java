@@ -34,6 +34,12 @@ public class OperativeMemory {
 		return memory[track * this.trackSize + idx];
 	}
 	
+	public void markMemory(int track, int idx) {
+		for (OperativeMemoryChangeListener l : memChangeListeners) {
+			l.memoryExecuted(track, idx);
+		}
+	}
+	
 	public void addOperativeMemoryChangeListener(OperativeMemoryChangeListener l) {
 		memChangeListeners.add(l);
 	}

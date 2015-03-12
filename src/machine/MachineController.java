@@ -61,6 +61,12 @@ public class MachineController extends JFrame {
 				table.removeRow(i);
 				table.insertRow(i, new Object[]{i, value});
 			}
+
+			@Override
+			public void memoryExecuted(int track, int idx) {
+				int row = track * ram.getTrackSize() + idx;
+				dataTable.changeSelection(row, 0, false, false);
+			}
 			
 		});
 	}

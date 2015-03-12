@@ -56,6 +56,20 @@ public class Processor {
 		}
 	}
 	
+	private void setSi(int si) {
+		if (this.si != si) {
+			changes.firePropertyChange(Register.SI.name(), this.si, si);
+			this.si = si;
+		}
+	}
+
+	private void setPi(int pi) {
+		if (this.pi != pi) {
+			changes.firePropertyChange(Register.PI.name(), this.pi, pi);
+			this.pi = pi;
+		}
+	}
+	
 	private void setSp(int sp) {
 		if (this.sp != sp) {
 			changes.firePropertyChange(Register.SP.name(), this.sp, sp);
@@ -131,6 +145,27 @@ public class Processor {
 		
 		try {
 			if (mode == 0) {
+				
+				if (cmd.length() >= 4) {
+					switch(cmd.substring(0, 3)) {
+						case "STI": {
+							int value = buildAddress(cmd.substring(3, 5));
+							setTi(value);
+							return;
+						}
+						case "SSI": {
+							int value = buildAddress(cmd.substring(3, 4));
+							setSi(value);
+							return;
+						}
+						case "SPI": {
+							int value = buildAddress(cmd.substring(3, 4));
+							setPi(value);
+							return;
+						}
+					}
+				}
+				
 				switch(cmd.substring(0, 2)) {
 					case "IH": {
 						int value = buildAddress(cmd.substring(2, 5));
@@ -140,14 +175,6 @@ public class Processor {
 					case "SP": {
 						int value = buildAddress(cmd.substring(2, 5));
 						setSp(value);
-						return;
-					}
-				}
-				
-				switch(cmd.substring(0, 3)) {
-					case "STI": {
-						int value = buildAddress(cmd.substring(3, 5));
-						setTi(value);
 						return;
 					}
 				}

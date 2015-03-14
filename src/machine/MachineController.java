@@ -131,7 +131,7 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(0, 0, "IH989");
 		ram.occupyMemory(0, 1, "STI10");
 		ram.occupyMemory(0, 2, "SP970");
-		ram.occupyMemory(0, 3, "SPT10");
+		ram.occupyMemory(0, 3, "SPT01");
 		ram.occupyMemory(0, 4, "VM100");
 
 		// VM paging

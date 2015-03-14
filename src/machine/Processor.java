@@ -120,7 +120,8 @@ public class Processor {
 			int trackNumber = Integer.parseInt(addr) % 100;
 			int x = Math.floorDiv(trackNumber, 10);
 			int y = trackNumber % 10;
-			int readAddress = (ptr + x) * 10 + y;
+			int vmTrackNumber = Integer.valueOf(ram.getMemory(ptr, x));
+			int readAddress = vmTrackNumber * 10 + y;
 			return readAddress;
 		}
 	}
@@ -242,7 +243,6 @@ public class Processor {
 				}
 				case "GV": {
 					int value = Integer.valueOf(cmd.substring(2, 5));
-					System.out.println(value);
 					setGr(value);
 					break;
 				}

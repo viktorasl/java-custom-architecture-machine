@@ -117,8 +117,11 @@ public class Processor {
 		if (this.mode == 0) {
 			return Integer.parseInt(addr);
 		} else {
-			//TODO: paging mechanism
-			return Integer.parseInt(addr);
+			int trackNumber = Integer.parseInt(addr) % 100;
+			int x = Math.floorDiv(trackNumber, 10);
+			int y = trackNumber % 10;
+			int readAddress = (ptr + x) * 10 + y;
+			return readAddress;
 		}
 	}
 	

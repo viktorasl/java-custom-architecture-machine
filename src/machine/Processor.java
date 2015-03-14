@@ -238,7 +238,8 @@ public class Processor {
 					break;
 				}
 				case "GV": {
-					int value = buildAddress(cmd.substring(2, 5));
+					int value = Integer.valueOf(cmd.substring(2, 5));
+					System.out.println(value);
 					setGr(value);
 					break;
 				}

@@ -126,41 +126,34 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(99, 6, "SSI0");
 		ram.occupyMemory(99, 7, "SPI0");
 		ram.occupyMemory(99, 8, "RESTR");
-		
-		// Procedure (adding 2 to GR)
-		ram.occupyMemory(2, 2, "2");
-		ram.occupyMemory(2, 0, "AD022");
-		ram.occupyMemory(2, 1, "RT");
-		
+
 		// Real machine setup
 		ram.occupyMemory(0, 0, "IH989");
 		ram.occupyMemory(0, 1, "STI10");
-		ram.occupyMemory(0, 2, "SP984");
-		ram.occupyMemory(0, 3, "SMOD1");
+		ram.occupyMemory(0, 2, "SP970");
+		ram.occupyMemory(0, 3, "VM100");
 		
 		// Program
-		ram.occupyMemory(0, 4, "CL020");
-		ram.occupyMemory(0, 5, "xxxxx");
-		ram.occupyMemory(0, 6, "MM031");
-		ram.occupyMemory(0, 7, "GV099");
-		ram.occupyMemory(0, 8, "AD030");
-		ram.occupyMemory(0, 9, "CP032");
-		ram.occupyMemory(1, 0, "HT");
-		ram.occupyMemory(1, 1, "JL006");
-		ram.occupyMemory(1, 2, "JG006");
-		ram.occupyMemory(2, 9, "GO006");
+		ram.occupyMemory(10, 0, "CL126");
+		ram.occupyMemory(10, 1, "xxxxx");
+		ram.occupyMemory(10, 2, "MM121");
+		ram.occupyMemory(10, 3, "GV099");
+		ram.occupyMemory(10, 4, "AD120");
+		ram.occupyMemory(10, 5, "CP122");
+		ram.occupyMemory(10, 6, "HT");
+		ram.occupyMemory(10, 7, "JL100");
+		ram.occupyMemory(10, 8, "JG100");
+		ram.occupyMemory(10, 9, "GO100");
 		
-		ram.occupyMemory(3, 0, "12");
-		ram.occupyMemory(3, 2, "110");
+		// Prorgram data
+		ram.occupyMemory(12, 0, "12");
+		ram.occupyMemory(12, 1, "110");
+		ram.occupyMemory(12, 2, "2");
 		
-		new Timer().schedule(new TimerTask() {          
-		    @Override
-		    public void run() {
-		    	for (int i = 0; i < 10; i++) {
-		    		ram.occupyMemory(12, i, "JE12");
-		    	}
-		    }
-		}, 4000);
+		// Procedure (adding 2 to GR)
+		ram.occupyMemory(12, 6, "AD122");
+		ram.occupyMemory(12, 7, "RT");
+
 	}
 	
 }

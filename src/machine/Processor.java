@@ -183,6 +183,12 @@ public class Processor {
 						setSp(value);
 						return;
 					}
+					case "VM": {
+						int value = buildAddress(cmd.substring(2, 5));
+						setPc(value);
+						setMode(1);
+						return;
+					}
 					case "LD": {
 						String reg = cmd.substring(2, 4);
 						switch (reg) {

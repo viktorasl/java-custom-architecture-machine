@@ -171,13 +171,11 @@ public class Processor extends Registerable {
 				
 				switch(cmd.substring(0, 2)) {
 					case "SA": {
-						int value = buildAddress(cmd.substring(2, 5));
-						chn.setSa(value);
+						chn.setSa(gr);
 						return;
 					}
 					case "DA": {
-						int value = buildAddress(cmd.substring(2, 5));
-						chn.setDa(value);
+						chn.setDa(gr);
 						return;
 					}
 					case "IO": {
@@ -223,7 +221,9 @@ public class Processor extends Registerable {
 				switch(cmd.substring(0, 4)) {
 					case "XCHG": {
 						if (chn.getIo() == 0) { // output
-							System.out.println("output");
+							int track = Math.floorDiv(chn.getSa(), 10);
+							int idx = chn.getSa() % 10;
+							chn.outputData(ram.getMemory(track, idx));
 						} else if (chn.getIo() == 1){ // input
 							System.out.println("input");
 						}

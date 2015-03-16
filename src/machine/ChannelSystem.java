@@ -5,7 +5,7 @@ public class ChannelSystem extends Registerable {
 	private int sa; // source address
 	private int da; // destination address
 	private int io; // input = 1/output = 0 type
-	private int dv; // device: hard-drive = 0/(io == 0 => monitor, io == 1 => flashdrive)
+	private int dv; // device: hard-drive = 0/1(io == 0 => monitor, io == 1 => flashdrive)
 	
 	public int getValue(ChannelRegisters reg) {
 		switch (reg) {
@@ -59,6 +59,10 @@ public class ChannelSystem extends Registerable {
 			changes.firePropertyChange(ChannelRegisters.DV.name(), this.dv, dv);
 			this.dv = dv;
 		}
+	}
+	
+	public void outputData(String data) {
+		System.out.println(data);
 	}
 	
 }

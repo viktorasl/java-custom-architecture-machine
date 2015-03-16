@@ -167,50 +167,60 @@ public class MachineController extends JFrame {
 	
 	private void demo() {
 		
-		ram.occupyMemory(98, 8, "0");
+		// Interrupt flag compares
+		ram.occupyMemory(94, 6, "0");
+		ram.occupyMemory(94, 7, "1");
+		ram.occupyMemory(94, 8, "2");
+		ram.occupyMemory(94, 9, "3");
 		
 		// Interrupt handler (increasing value in [999] by 1 & setting TI := 10)
-		ram.occupyMemory(98, 9, "GV001");
-		ram.occupyMemory(99, 0, "AD999");
-		ram.occupyMemory(99, 1, "MM999");
-		ram.occupyMemory(99, 2, "LDTI");
-		ram.occupyMemory(99, 3, "CP988");
-		ram.occupyMemory(99, 4, "JG996");
-		ram.occupyMemory(99, 5, "STI10");
-		ram.occupyMemory(99, 6, "SSI0");
-		ram.occupyMemory(99, 7, "SPI0");
-		ram.occupyMemory(99, 8, "RESTR");
+		ram.occupyMemory(95, 0, "GV001");
+		ram.occupyMemory(95, 1, "AD999");
+		ram.occupyMemory(95, 2, "MM999");
+		ram.occupyMemory(95, 3, "LDTI");
+		ram.occupyMemory(95, 4, "CP946");
+		ram.occupyMemory(95, 5, "JG960");
+		ram.occupyMemory(95, 6, "STI10");
+		ram.occupyMemory(95, 7, "GO960");
+		
+		// Checking I/O
+		ram.occupyMemory(96, 0, "DV0");
+		ram.occupyMemory(96, 1, "LDSI");
+		
+		// Output handler
+		ram.occupyMemory(96, 2, "CP948");
+		ram.occupyMemory(96, 3, "JE966");
+		ram.occupyMemory(96, 4, "GO970");
+		ram.occupyMemory(96, 6, "IO0");
+		ram.occupyMemory(96, 7, "GO980");
+		
+		// Input handler
+		ram.occupyMemory(97, 0, "CP949");
+		ram.occupyMemory(97, 1, "JL983");
+		ram.occupyMemory(97, 2, "IO1");
+		ram.occupyMemory(97, 3, "GO980");
+		
+		// I/O handler
+		ram.occupyMemory(98, 0, "SA");
+		ram.occupyMemory(98, 1, "XCHG");
+		
+		ram.occupyMemory(98, 2, "SSI0");
+		ram.occupyMemory(98, 3, "SPI0");
+		ram.occupyMemory(98, 4, "RESTR");
 
 		// Real machine setup
-		
-		ram.occupyMemory(20, 0, "Kanal");
-		ram.occupyMemory(20, 1, "u ire");
-		ram.occupyMemory(20, 2, "ngini");
-		ram.occupyMemory(20, 3, "o ban");
-		ram.occupyMemory(20, 4, "dymas");
-		
-		ram.occupyMemory(0, 0, "IO0");
-		ram.occupyMemory(0, 1, "DV0");
-		ram.occupyMemory(0, 2, "GV200");
-		ram.occupyMemory(0, 3, "1");
-		ram.occupyMemory(0, 4, "205");
-		
-		ram.occupyMemory(0, 5, "SA");
-		ram.occupyMemory(0, 6, "XCHG");
-		ram.occupyMemory(0, 7, "AD003");
-		ram.occupyMemory(0, 8, "CP004");
-		ram.occupyMemory(0, 9, "JL005");
-		
-//		ram.occupyMemory(0, 0, "IH989");
-//		ram.occupyMemory(0, 1, "STI10");
-//		ram.occupyMemory(0, 2, "SP970");
-//		ram.occupyMemory(0, 3, "SPT01");
-//		ram.occupyMemory(0, 4, "VM130");
+		ram.occupyMemory(0, 0, "IH950");
+		ram.occupyMemory(0, 1, "STI10");
+		ram.occupyMemory(0, 2, "SP900");
+		ram.occupyMemory(0, 3, "SPT01");
+		ram.occupyMemory(0, 4, "GV130");
+		ram.occupyMemory(0, 5, "VM");
 
 		// VM paging
 		ram.occupyMemory(1, 0, "13");
 		ram.occupyMemory(1, 1, "14");
 		ram.occupyMemory(1, 2, "15");
+		ram.occupyMemory(1, 3, "16");
 		
 		// Program
 		ram.occupyMemory(13, 0, "CL026");
@@ -219,20 +229,32 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(13, 3, "GV099");
 		ram.occupyMemory(13, 4, "AD020");
 		ram.occupyMemory(13, 5, "CP022");
-		ram.occupyMemory(13, 6, "HT");
-		ram.occupyMemory(13, 7, "JL000");
-		ram.occupyMemory(13, 8, "JG000");
-		ram.occupyMemory(13, 9, "GO000");
+		
+		ram.occupyMemory(13, 6, "GV030");
+		ram.occupyMemory(13, 7, "PT");
+		ram.occupyMemory(13, 8, "AD023");
+		ram.occupyMemory(13, 9, "CP024");
+		ram.occupyMemory(14, 0, "JL007");
+		
+		ram.occupyMemory(14, 1, "HT");
 		
 		// Prorgram data
 		ram.occupyMemory(15, 0, "12");
 		ram.occupyMemory(15, 1, "110");
 		ram.occupyMemory(15, 2, "2");
+		ram.occupyMemory(15, 3, "1");
+		ram.occupyMemory(15, 4, "035");
+		
+		ram.occupyMemory(16, 0, "Kanal");
+		ram.occupyMemory(16, 1, "u ire");
+		ram.occupyMemory(16, 2, "ngini");
+		ram.occupyMemory(16, 3, "o ban");
+		ram.occupyMemory(16, 4, "dymas");
 		
 		// Procedure (adding 2 to GR)
 		ram.occupyMemory(15, 6, "AD122");
 		ram.occupyMemory(15, 7, "RT");
-
+		
 	}
 	
 }

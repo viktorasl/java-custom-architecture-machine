@@ -22,7 +22,10 @@ public class ChannelSystem extends Registerable {
 	}
 	
 	public void setSa(int sa) {
-		this.sa = sa;
+		if (this.sa != sa) {
+			changes.firePropertyChange(ChannelRegisters.SA.name(), this.sa, sa);
+			this.sa = sa;
+		}
 	}
 
 	public int getDa() {
@@ -30,7 +33,10 @@ public class ChannelSystem extends Registerable {
 	}
 
 	public void setDa(int da) {
-		this.da = da;
+		if (this.da != da) {
+			changes.firePropertyChange(ChannelRegisters.DA.name(), this.da, da);
+			this.da = da;
+		}
 	}
 
 	public int getIo() {
@@ -38,7 +44,10 @@ public class ChannelSystem extends Registerable {
 	}
 
 	public void setIo(int io) {
-		this.io = io;
+		if (this.io != io) {
+			changes.firePropertyChange(ChannelRegisters.IO.name(), this.io, io);
+			this.io = io;
+		}
 	}
 
 	public int getDv() {
@@ -46,7 +55,10 @@ public class ChannelSystem extends Registerable {
 	}
 
 	public void setDv(int dv) {
-		this.dv = dv;
+		if (this.dv != dv) {
+			changes.firePropertyChange(ChannelRegisters.DV.name(), this.dv, dv);
+			this.dv = dv;
+		}
 	}
 	
 }

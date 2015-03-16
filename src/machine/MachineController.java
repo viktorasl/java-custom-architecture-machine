@@ -33,8 +33,8 @@ public class MachineController extends JFrame {
 	
 	public MachineController() {
 		ram = new OperativeMemory(100, 10);
-		cpu = new Processor(ram);
 		chn = new ChannelSystem();
+		cpu = new Processor(ram, chn);
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,11 +167,23 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(99, 8, "RESTR");
 
 		// Real machine setup
-		ram.occupyMemory(0, 0, "IH989");
-		ram.occupyMemory(0, 1, "STI10");
-		ram.occupyMemory(0, 2, "SP970");
-		ram.occupyMemory(0, 3, "SPT01");
-		ram.occupyMemory(0, 4, "VM130");
+		
+		ram.occupyMemory(20, 0, "Kanal");
+		ram.occupyMemory(20, 1, "u ire");
+		ram.occupyMemory(20, 2, "ngini");
+		ram.occupyMemory(20, 3, "o ban");
+		ram.occupyMemory(20, 4, "dymas");
+		
+		ram.occupyMemory(0, 0, "SA200");
+		ram.occupyMemory(0, 1, "IO0");
+		ram.occupyMemory(0, 2, "DV0");
+		ram.occupyMemory(0, 3, "XCHG");
+		
+//		ram.occupyMemory(0, 0, "IH989");
+//		ram.occupyMemory(0, 1, "STI10");
+//		ram.occupyMemory(0, 2, "SP970");
+//		ram.occupyMemory(0, 3, "SPT01");
+//		ram.occupyMemory(0, 4, "VM130");
 
 		// VM paging
 		ram.occupyMemory(1, 0, "13");

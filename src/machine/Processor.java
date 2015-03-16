@@ -14,9 +14,11 @@ public class Processor extends Registerable {
 	int ti; // Timer interrupt
 	
 	OperativeMemory ram;
+	ChannelSystem chn;
 	
-	public Processor(OperativeMemory ram) {
+	public Processor(OperativeMemory ram, ChannelSystem chn) {
 		this.ram = ram;
+		this.chn = chn;
 	}
 	
 	private void setMode(int mode) {
@@ -168,6 +170,26 @@ public class Processor extends Registerable {
 				}
 				
 				switch(cmd.substring(0, 2)) {
+					case "SA": {
+						int value = buildAddress(cmd.substring(2, 5));
+						chn.setSa(value);
+						return;
+					}
+					case "DA": {
+						int value = buildAddress(cmd.substring(2, 5));
+						chn.setDa(value);
+						return;
+					}
+					case "IO": {
+						int value = buildAddress(cmd.substring(2, 3));
+						chn.setIo(value);
+						return;
+					}
+					case "DV": {
+						int value = buildAddress(cmd.substring(2, 3));
+						chn.setDv(value);
+						return;
+					}
 					case "IH": {
 						int value = buildAddress(cmd.substring(2, 5));
 						setIh(value);
@@ -199,6 +221,14 @@ public class Processor extends Registerable {
 				}
 				
 				switch(cmd.substring(0, 4)) {
+					case "XCHG": {
+						if (chn.getIo() == 0) { // output
+							System.out.println("output");
+						} else if (chn.getIo() == 1){ // input
+							System.out.println("input");
+						}
+						return;
+					}
 					case "SMOD": {
 						int value = buildAddress(cmd.substring(4, 5));
 						setMode(value);

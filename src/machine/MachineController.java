@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -146,6 +147,20 @@ public class MachineController extends JFrame {
 			}
 			
 		});
+		
+		JTextArea textArea = new JTextArea(3, 30);
+		textArea.setEditable(false);
+		chn.setChannelSystemProtocol(new ChannelSystemProtocol() {
+			
+			@Override
+			public void systemSentData(String data) {
+				textArea.append(data);
+			}
+			
+		});
+		
+		registersPanel.add(textArea);
+		
 		
 		return registersPanel;
 	}

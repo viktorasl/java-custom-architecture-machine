@@ -7,6 +7,8 @@ public class ChannelSystem extends Registerable {
 	private int io; // input = 1/output = 0 type
 	private int dv; // device: hard-drive = 0/1(io == 0 => monitor, io == 1 => flashdrive)
 	
+	private ChannelSystemProtocol protocol;
+	
 	public int getValue(ChannelRegisters reg) {
 		switch (reg) {
 		case SA: return sa;
@@ -61,8 +63,14 @@ public class ChannelSystem extends Registerable {
 		}
 	}
 	
+	public void setChannelSystemProtocol(ChannelSystemProtocol csp) {
+		this.protocol = csp;
+	}
+	
 	public void outputData(String data) {
-		System.out.println(data);
+		if (this.protocol != null) {
+			this.protocol.systemSentData(data);
+		}
 	}
 	
 }

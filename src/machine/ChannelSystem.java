@@ -1,11 +1,21 @@
 package machine;
 
-public class ChannelSystem {
+public class ChannelSystem extends Registerable {
 	
 	private int sa; // source address
 	private int da; // destination address
 	private int io; // input = 1/output = 0 type
 	private int dv; // device: hard-drive = 0/(io == 0 => monitor, io == 1 => flashdrive)
+	
+	public int getValue(ChannelRegisters reg) {
+		switch (reg) {
+		case SA: return sa;
+		case DA: return da;
+		case IO: return io;
+		case DV: return dv;
+		}
+		return 0;
+	}
 	
 	public int getSa() {
 		return sa;

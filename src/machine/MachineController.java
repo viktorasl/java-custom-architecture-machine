@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ public class MachineController extends JFrame {
 	private static final long serialVersionUID = 3795986469706534809L;
 	private Processor cpu;
 	private OperativeMemory ram;
+	private ChannelSystem chn;
 	
 	public static void main(String[] argv) {
 		new MachineController();
@@ -32,6 +34,7 @@ public class MachineController extends JFrame {
 	public MachineController() {
 		ram = new OperativeMemory(100, 10);
 		cpu = new Processor(ram);
+		chn = new ChannelSystem();
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +42,26 @@ public class MachineController extends JFrame {
 		setSize(500, 300);
 		
 		initializeMemoryTable();
-		initializeRegisters();
+		
+		JPanel registersPanel = new JPanel();
+		registersPanel.setLayout(new BoxLayout(registersPanel, BoxLayout.PAGE_AXIS));
+		
+		registersPanel.add(initializeRegisters());
+		registersPanel.add(initializeChannelSystem());
+		
+		JButton stepButton = new JButton("Step");
+		stepButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cpu.step();
+			}
+			
+		});
+		
+		registersPanel.add(stepButton);
+		
+		getContentPane().add(registersPanel);
 		
 		setVisible(true);
 		
@@ -71,9 +93,8 @@ public class MachineController extends JFrame {
 		});
 	}
 	
-	private void initializeRegisters() {
-		JPanel registersPanel = new JPanel();
-		
+	private JPanel initializeRegisters() {
+		JPanel cpuRegistersPanel = new JPanel();
 		final Map<Register, JTextField> registersMap = new HashMap<Register, JTextField>();
 		
 		for (Register reg : Register.values()) {
@@ -84,7 +105,7 @@ public class MachineController extends JFrame {
 			regField.setEditable(false);
 			registerPanel.add(regLabel);
 			registerPanel.add(regField);
-			registersPanel.add(registerPanel);
+			cpuRegistersPanel.add(registerPanel);
 		}
 		
 		cpu.addPropertyChangeListener(new PropertyChangeListener() {
@@ -97,18 +118,36 @@ public class MachineController extends JFrame {
 			
 		});
 		
-		JButton stepButton = new JButton("Step");
-		stepButton.addActionListener(new ActionListener() {
+		return cpuRegistersPanel;
+	}
+	
+	private JPanel initializeChannelSystem() {
+		JPanel registersPanel = new JPanel();
+		
+		final Map<ChannelRegisters, JTextField> registersMap = new HashMap<ChannelRegisters, JTextField>();
+		
+		for (ChannelRegisters reg : ChannelRegisters.values()) {
+			JPanel registerPanel = new JPanel();
+			JLabel regLabel = new JLabel(reg.name().toUpperCase());
+			final JTextField regField = new JTextField(String.format("%5d", chn.getValue(reg)));
+			registersMap.put(reg, regField);
+			regField.setEditable(false);
+			registerPanel.add(regLabel);
+			registerPanel.add(regField);
+			registersPanel.add(registerPanel);
+		}
+		
+		chn.addPropertyChangeListener(new PropertyChangeListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				cpu.step();
+			public void propertyChange(PropertyChangeEvent evt) {
+				ChannelRegisters reg = ChannelRegisters.valueOf(evt.getPropertyName());
+				registersMap.get(reg).setText(String.format("%5d", (int)evt.getNewValue()));
 			}
 			
 		});
-		registersPanel.add(stepButton);
 		
-		getContentPane().add(registersPanel);
+		return registersPanel;
 	}
 	
 	private void demo() {

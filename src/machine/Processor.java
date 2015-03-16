@@ -1,9 +1,6 @@
 package machine;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-public class Processor {
+public class Processor extends Registerable {
 	
 	int mode; // Machine mode
 	int ptr; // Pages table register
@@ -18,14 +15,8 @@ public class Processor {
 	
 	OperativeMemory ram;
 	
-	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
-	
 	public Processor(OperativeMemory ram) {
 		this.ram = ram;
-	}
-	
-	public void addPropertyChangeListener(PropertyChangeListener l) {
-		changes.addPropertyChangeListener(l);
 	}
 	
 	private void setMode(int mode) {

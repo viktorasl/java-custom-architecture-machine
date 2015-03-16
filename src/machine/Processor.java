@@ -199,7 +199,7 @@ public class Processor extends Registerable {
 						return;
 					}
 					case "VM": {
-						int value = buildAddress(cmd.substring(2, 5));
+						int value = gr % 1000;
 						setPc(value);
 						setMode(1);
 						return;

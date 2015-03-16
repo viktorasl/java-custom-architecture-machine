@@ -10,5 +10,6 @@ public enum Register {
 	CF,
 	PI,
 	SI,
-	TI
+	TI,
+	IO
 }

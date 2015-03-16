@@ -12,6 +12,7 @@ public class Processor extends Registerable {
 	int pi; // Programming interrupt
 	int si; // Supervisor interrupt
 	int ti; // Timer interrupt
+	int io; // I/O address
 	
 	OperativeMemory ram;
 	ChannelSystem chn;
@@ -74,6 +75,13 @@ public class Processor extends Registerable {
 		if (this.ti != ti) {
 			changes.firePropertyChange(Register.TI.name(), this.ti, ti);
 			this.ti = ti;
+		}
+	}
+	
+	private void setIo(int io) {
+		if (this.io != io) {
+			changes.firePropertyChange(Register.IO.name(), this.io, io);
+			this.io = io;
 		}
 	}
 	
@@ -171,11 +179,11 @@ public class Processor extends Registerable {
 				
 				switch(cmd.substring(0, 2)) {
 					case "SA": {
-						chn.setSa(gr);
+						chn.setSa(io);
 						return;
 					}
 					case "DA": {
-						chn.setDa(gr);
+						chn.setDa(io);
 						return;
 					}
 					case "IO": {
@@ -212,6 +220,8 @@ public class Processor extends Registerable {
 							case "PI": setGr(pi);
 								break;
 							case "TI": setGr(ti);
+								break;
+							case "IO": setGr(io);
 								break;
 						}
 						return;
@@ -314,6 +324,18 @@ public class Processor extends Registerable {
 				}
 				case "RT": {
 					setPc(pop());
+					break;
+				}
+				case "PT": {
+					cmdLength = 3;
+					setIo(buildAddress(String.valueOf(gr)));
+					setSi(2);
+					break;
+				}
+				case "SC": {
+					cmdLength = 3;
+					setIo(buildAddress(String.valueOf(gr)));
+					setSi(3);
 					break;
 				}
 				case "HT": {

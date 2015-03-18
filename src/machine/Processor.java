@@ -126,8 +126,14 @@ public class Processor extends Registerable {
 		if (this.mode == 0) {
 			return Integer.parseInt(addr);
 		} else {
-			int trackNumber = Integer.parseInt(addr) % 100;
+			int trackNumber = Integer.parseInt(addr);
+			if (trackNumber >= ram.getTracksCount()) {
+				throw new OutOfVirtualMemoryException();
+			}
 			int x = Math.floorDiv(trackNumber, 10);
+			if (x >= ram.getTrackSize()) {
+				throw new OutOfVirtualMemoryException();
+			}
 			int y = trackNumber % 10;
 			int vmTrackNumber = Integer.valueOf(ram.getMemory(ptr, x));
 			if (vmTrackNumber == 0) {

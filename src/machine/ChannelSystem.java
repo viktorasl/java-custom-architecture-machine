@@ -9,7 +9,7 @@ public class ChannelSystem extends Registerable {
 	
 	private ChannelSystemProtocol protocol;
 	
-	public int getValue(ChannelRegisters reg) {
+	public int getValue(ChannelSystemRegister reg) {
 		switch (reg) {
 		case SA: return sa;
 		case DA: return da;
@@ -25,7 +25,7 @@ public class ChannelSystem extends Registerable {
 	
 	public void setSa(int sa) {
 		if (this.sa != sa) {
-			changes.firePropertyChange(ChannelRegisters.SA.name(), this.sa, sa);
+			changes.firePropertyChange(ChannelSystemRegister.SA.name(), this.sa, sa);
 			this.sa = sa;
 		}
 	}
@@ -36,7 +36,7 @@ public class ChannelSystem extends Registerable {
 
 	public void setDa(int da) {
 		if (this.da != da) {
-			changes.firePropertyChange(ChannelRegisters.DA.name(), this.da, da);
+			changes.firePropertyChange(ChannelSystemRegister.DA.name(), this.da, da);
 			this.da = da;
 		}
 	}
@@ -47,7 +47,7 @@ public class ChannelSystem extends Registerable {
 
 	public void setIo(int io) {
 		if (this.io != io) {
-			changes.firePropertyChange(ChannelRegisters.IO.name(), this.io, io);
+			changes.firePropertyChange(ChannelSystemRegister.IO.name(), this.io, io);
 			this.io = io;
 		}
 	}
@@ -58,7 +58,7 @@ public class ChannelSystem extends Registerable {
 
 	public void setDv(int dv) {
 		if (this.dv != dv) {
-			changes.firePropertyChange(ChannelRegisters.DV.name(), this.dv, dv);
+			changes.firePropertyChange(ChannelSystemRegister.DV.name(), this.dv, dv);
 			this.dv = dv;
 		}
 	}

@@ -7,8 +7,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -71,7 +69,7 @@ public class MachineController extends JFrame {
 	
 	private void initializeMemoryTable() {
 		String[] columnNames = {"Address", "Content"};
-		final DefaultTableModel table = new MemoryTable(columnNames, ram);
+		final DefaultTableModel table = new OperativeMemoryTable(columnNames, ram);
 		final JTable dataTable = new JTable(table);
 		JScrollPane scrollPane = new JScrollPane(dataTable);
 		getContentPane().add(scrollPane);
@@ -96,9 +94,9 @@ public class MachineController extends JFrame {
 	
 	private JPanel initializeRegisters() {
 		JPanel cpuRegistersPanel = new JPanel();
-		final Map<Register, JTextField> registersMap = new HashMap<Register, JTextField>();
+		final Map<ProcessorRegister, JTextField> registersMap = new HashMap<ProcessorRegister, JTextField>();
 		
-		for (Register reg : Register.values()) {
+		for (ProcessorRegister reg : ProcessorRegister.values()) {
 			JPanel registerPanel = new JPanel();
 			JLabel regLabel = new JLabel(reg.name().toUpperCase());
 			final JTextField regField = new JTextField(String.format("%5d", cpu.getValue(reg)));
@@ -113,7 +111,7 @@ public class MachineController extends JFrame {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				Register reg = Register.valueOf(evt.getPropertyName());
+				ProcessorRegister reg = ProcessorRegister.valueOf(evt.getPropertyName());
 				registersMap.get(reg).setText(String.format("%5d", (int)evt.getNewValue()));
 			}
 			
@@ -125,9 +123,9 @@ public class MachineController extends JFrame {
 	private JPanel initializeChannelSystem() {
 		JPanel registersPanel = new JPanel();
 		
-		final Map<ChannelRegisters, JTextField> registersMap = new HashMap<ChannelRegisters, JTextField>();
+		final Map<ChannelSystemRegister, JTextField> registersMap = new HashMap<ChannelSystemRegister, JTextField>();
 		
-		for (ChannelRegisters reg : ChannelRegisters.values()) {
+		for (ChannelSystemRegister reg : ChannelSystemRegister.values()) {
 			JPanel registerPanel = new JPanel();
 			JLabel regLabel = new JLabel(reg.name().toUpperCase());
 			final JTextField regField = new JTextField(String.format("%5d", chn.getValue(reg)));
@@ -142,7 +140,7 @@ public class MachineController extends JFrame {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				ChannelRegisters reg = ChannelRegisters.valueOf(evt.getPropertyName());
+				ChannelSystemRegister reg = ChannelSystemRegister.valueOf(evt.getPropertyName());
 				registersMap.get(reg).setText(String.format("%5d", (int)evt.getNewValue()));
 			}
 			

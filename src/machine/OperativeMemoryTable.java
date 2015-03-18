@@ -2,14 +2,11 @@ package machine;
 
 import javax.swing.table.DefaultTableModel;
 
-public class MemoryTable extends DefaultTableModel {
+public class OperativeMemoryTable extends DefaultTableModel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8052788013480634187L;
 
-	public MemoryTable(String[] columnNames, OperativeMemory ram){
+	public OperativeMemoryTable(String[] columnNames, OperativeMemory ram){
 		super(columnNames, 0);
 		
 		for (int i = 0; i < ram.getTracksCount(); i++) {

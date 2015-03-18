@@ -1,6 +1,6 @@
 package machine;
 
-public enum ChannelRegisters {
+public enum ChannelSystemRegister {
 	SA,
 	DA,
 	IO,

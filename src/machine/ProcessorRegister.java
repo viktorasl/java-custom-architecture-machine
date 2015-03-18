@@ -1,6 +1,6 @@
 package machine;
 
-public enum Register {
+public enum ProcessorRegister {
 	Mode,
 	PTR,
 	GR,
@@ -11,5 +11,5 @@ public enum Register {
 	PI,
 	SI,
 	TI,
-	IO
+	AR
 }

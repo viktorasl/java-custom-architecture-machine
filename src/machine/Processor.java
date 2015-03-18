@@ -12,7 +12,7 @@ public class Processor extends Registerable {
 	int pi; // Programming interrupt
 	int si; // Supervisor interrupt
 	int ti; // Timer interrupt
-	int io; // I/O address
+	int ar; // I/O address
 	
 	OperativeMemory ram;
 	ChannelSystem chn;
@@ -24,83 +24,83 @@ public class Processor extends Registerable {
 	
 	private void setMode(int mode) {
 		if (this.mode != mode) {
-			changes.firePropertyChange(Register.Mode.name(), this.mode, mode);
+			changes.firePropertyChange(ProcessorRegister.Mode.name(), this.mode, mode);
 			this.mode = mode;
 		}
 	}
 	
 	private void setGr(int gr) {
 		if (this.gr != gr) {
-			changes.firePropertyChange(Register.GR.name(), this.gr, gr);
+			changes.firePropertyChange(ProcessorRegister.GR.name(), this.gr, gr);
 			this.gr = gr;
 		}
 	}
 	
 	private void setCf(int cf) {
 		if (this.cf != cf) {
-			changes.firePropertyChange(Register.CF.name(), this.cf, cf);
+			changes.firePropertyChange(ProcessorRegister.CF.name(), this.cf, cf);
 			this.cf = cf;
 		}
 	}
 	
 	private void setIh(int ih) {
 		if (this.ih != ih) {
-			changes.firePropertyChange(Register.IH.name(), this.ih, ih);
+			changes.firePropertyChange(ProcessorRegister.IH.name(), this.ih, ih);
 			this.ih = ih;
 		}
 	}
 	
 	private void setSi(int si) {
 		if (this.si != si) {
-			changes.firePropertyChange(Register.SI.name(), this.si, si);
+			changes.firePropertyChange(ProcessorRegister.SI.name(), this.si, si);
 			this.si = si;
 		}
 	}
 
 	private void setPi(int pi) {
 		if (this.pi != pi) {
-			changes.firePropertyChange(Register.PI.name(), this.pi, pi);
+			changes.firePropertyChange(ProcessorRegister.PI.name(), this.pi, pi);
 			this.pi = pi;
 		}
 	}
 	
 	private void setSp(int sp) {
 		if (this.sp != sp) {
-			changes.firePropertyChange(Register.SP.name(), this.sp, sp);
+			changes.firePropertyChange(ProcessorRegister.SP.name(), this.sp, sp);
 			this.sp = sp;
 		}
 	}
 	
 	private void setTi(int ti) {
 		if (this.ti != ti) {
-			changes.firePropertyChange(Register.TI.name(), this.ti, ti);
+			changes.firePropertyChange(ProcessorRegister.TI.name(), this.ti, ti);
 			this.ti = ti;
 		}
 	}
 	
-	private void setIo(int io) {
-		if (this.io != io) {
-			changes.firePropertyChange(Register.IO.name(), this.io, io);
-			this.io = io;
+	private void setAr(int ar) {
+		if (this.ar != ar) {
+			changes.firePropertyChange(ProcessorRegister.AR.name(), this.ar, ar);
+			this.ar = ar;
 		}
 	}
 	
 	private void setPtr(int ptr) {
 		if (this.ptr != ptr) {
-			changes.firePropertyChange(Register.PTR.name(), this.ptr, ptr);
+			changes.firePropertyChange(ProcessorRegister.PTR.name(), this.ptr, ptr);
 			this.ptr = ptr;
 		}
 	}
 	
 	private void setPc(int pc) {
 		if (this.pc != pc) {
-			changes.firePropertyChange(Register.PC.name(), this.pc, pc);
+			changes.firePropertyChange(ProcessorRegister.PC.name(), this.pc, pc);
 			this.pc = pc;
 		}
 	}
 	
 	private void incPc() {
-		changes.firePropertyChange(Register.PC.name(), this.pc, this.pc + 1);
+		changes.firePropertyChange(ProcessorRegister.PC.name(), this.pc, this.pc + 1);
 		setPc(this.pc + 1);
 	}
 	
@@ -182,11 +182,11 @@ public class Processor extends Registerable {
 				
 				switch(cmd.substring(0, 2)) {
 					case "SA": {
-						chn.setSa(io);
+						chn.setSa(ar);
 						return;
 					}
 					case "DA": {
-						chn.setDa(io);
+						chn.setDa(ar);
 						return;
 					}
 					case "IO": {
@@ -224,7 +224,7 @@ public class Processor extends Registerable {
 								break;
 							case "TI": setGr(ti);
 								break;
-							case "IO": setGr(io);
+							case "IO": setGr(ar);
 								break;
 						}
 						return;
@@ -331,13 +331,13 @@ public class Processor extends Registerable {
 				}
 				case "PT": {
 					cmdLength = 3;
-					setIo(buildAddress(String.valueOf(gr)));
+					setAr(buildAddress(String.valueOf(gr)));
 					setSi(2);
 					break;
 				}
 				case "SC": {
 					cmdLength = 3;
-					setIo(buildAddress(String.valueOf(gr)));
+					setAr(buildAddress(String.valueOf(gr)));
 					setSi(3);
 					break;
 				}
@@ -365,7 +365,7 @@ public class Processor extends Registerable {
 		}
 	}
 	
-	public int getValue(Register reg) {
+	public int getValue(ProcessorRegister reg) {
 		switch (reg) {
 			case CF: return cf;
 			case GR: return gr;
@@ -377,6 +377,7 @@ public class Processor extends Registerable {
 			case PTR: return ptr;
 			case SI: return si;
 			case TI: return ti;
+			case AR: return ar;
 		}
 		return 0;
 	}

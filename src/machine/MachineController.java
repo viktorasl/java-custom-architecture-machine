@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +24,7 @@ public class MachineController extends JFrame {
 	private Processor cpu;
 	private OperativeMemory ram;
 	private ChannelSystem chn;
+	private Printer printer;
 	
 	public static void main(String[] argv) {
 		new MachineController();
@@ -32,7 +32,8 @@ public class MachineController extends JFrame {
 	
 	public MachineController() {
 		ram = new OperativeMemory(100, 10);
-		chn = new ChannelSystem(new HardDrive(), new Printer(), new Keyboard());
+		printer = new Printer(3, 30);
+		chn = new ChannelSystem(new HardDrive(), printer, new Keyboard());
 		cpu = new Processor(ram, chn);
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
@@ -146,18 +147,7 @@ public class MachineController extends JFrame {
 			
 		});
 		
-		JTextArea textArea = new JTextArea(3, 30);
-		textArea.setEditable(false);
-		chn.setChannelSystemProtocol(new ChannelSystemProtocol() {
-			
-			@Override
-			public void systemSentData(String data) {
-				textArea.append(data);
-			}
-			
-		});
-		
-		registersPanel.add(textArea);
+		registersPanel.add(printer);
 		
 		
 		return registersPanel;

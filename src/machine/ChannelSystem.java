@@ -7,11 +7,11 @@ public class ChannelSystem extends Registerable {
 	private int io; // input = 1/output = 0 type
 	private int dv; // device: hard-drive (dv=0) / external device(dv=1)printer(io=0) keyboard(io=1)
 	
-	public ChannelSystem (HardDrive hdd, Printer printer, Keyboard keyboard) {
-		
-	}
+	private Printer printer;
 	
-	private ChannelSystemProtocol protocol;
+	public ChannelSystem (HardDrive hdd, Printer printer, Keyboard keyboard) {
+		this.printer = printer;
+	}
 	
 	public int getValue(ChannelSystemRegister reg) {
 		switch (reg) {
@@ -67,14 +67,8 @@ public class ChannelSystem extends Registerable {
 		}
 	}
 	
-	public void setChannelSystemProtocol(ChannelSystemProtocol csp) {
-		this.protocol = csp;
-	}
-	
 	public void outputData(String data) {
-		if (this.protocol != null) {
-			this.protocol.systemSentData(data);
-		}
+		this.printer.printData(data);
 	}
 	
 }

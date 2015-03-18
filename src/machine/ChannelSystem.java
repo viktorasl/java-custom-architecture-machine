@@ -5,7 +5,11 @@ public class ChannelSystem extends Registerable {
 	private int sa; // source address
 	private int da; // destination address
 	private int io; // input = 1/output = 0 type
-	private int dv; // device: hard-drive = 0/1(io == 0 => monitor, io == 1 => flashdrive)
+	private int dv; // device: hard-drive (dv=0) / external device(dv=1)printer(io=0) keyboard(io=1)
+	
+	public ChannelSystem (HardDrive hdd, Printer printer, Keyboard keyboard) {
+		
+	}
 	
 	private ChannelSystemProtocol protocol;
 	

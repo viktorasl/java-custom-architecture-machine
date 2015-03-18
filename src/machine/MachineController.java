@@ -32,7 +32,7 @@ public class MachineController extends JFrame {
 	
 	public MachineController() {
 		ram = new OperativeMemory(100, 10);
-		chn = new ChannelSystem();
+		chn = new ChannelSystem(new HardDrive(), new Printer(), new Keyboard());
 		cpu = new Processor(ram, chn);
 		
 		getContentPane().setLayout(new GridLayout(1, 3));

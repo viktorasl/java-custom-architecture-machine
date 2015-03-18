@@ -7,10 +7,21 @@ public class ChannelSystem extends Registerable {
 	private int io; // input = 1/output = 0 type
 	private int dv; // device: hard-drive (dv=0) / external device(dv=1)printer(io=0) keyboard(io=1)
 	
+	private String savedInput;
 	private Printer printer;
+	private ChannelSystemInputProtocol protocol;
 	
 	public ChannelSystem (HardDrive hdd, Printer printer, Keyboard keyboard) {
 		this.printer = printer;
+		keyboard.addKeyboardProtocol(new KeyboardProtocol() {
+			
+			@Override
+			public void deliverData(String data) {
+				setSavedInput(data);
+				protocol.notifyAboutInput();
+			}
+			
+		});
 	}
 	
 	public int getValue(ChannelSystemRegister reg) {
@@ -69,6 +80,18 @@ public class ChannelSystem extends Registerable {
 	
 	public void outputData(String data) {
 		this.printer.printData(data);
+	}
+
+	public void setProtocol(ChannelSystemInputProtocol protocol) {
+		this.protocol = protocol;
+	}
+
+	public String getSavedInput() {
+		return savedInput;
+	}
+
+	public void setSavedInput(String savedInput) {
+		this.savedInput = savedInput;
 	}
 	
 }

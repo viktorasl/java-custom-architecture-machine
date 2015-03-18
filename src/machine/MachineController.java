@@ -25,6 +25,7 @@ public class MachineController extends JFrame {
 	private OperativeMemory ram;
 	private ChannelSystem chn;
 	private Printer printer;
+	private Keyboard keyboard;
 	
 	public static void main(String[] argv) {
 		new MachineController();
@@ -33,7 +34,8 @@ public class MachineController extends JFrame {
 	public MachineController() {
 		ram = new OperativeMemory(100, 10);
 		printer = new Printer(3, 30);
-		chn = new ChannelSystem(new HardDrive(), printer, new Keyboard());
+		keyboard = new Keyboard(5);
+		chn = new ChannelSystem(new HardDrive(), printer, keyboard);
 		cpu = new Processor(ram, chn);
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
@@ -148,7 +150,7 @@ public class MachineController extends JFrame {
 		});
 		
 		registersPanel.add(printer);
-		
+		registersPanel.add(keyboard);
 		
 		return registersPanel;
 	}

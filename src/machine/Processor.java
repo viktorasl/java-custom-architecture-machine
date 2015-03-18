@@ -17,9 +17,17 @@ public class Processor extends Registerable {
 	OperativeMemory ram;
 	ChannelSystem chn;
 	
-	public Processor(OperativeMemory ram, ChannelSystem chn) {
+	public Processor(OperativeMemory ram, ChannelSystem chn) {	
 		this.ram = ram;
 		this.chn = chn;
+		this.chn.setProtocol(new ChannelSystemInputProtocol() {
+			
+			@Override
+			public void notifyAboutInput() {
+				setSi(4);
+			}
+			
+		});
 	}
 	
 	private void setMode(int mode) {

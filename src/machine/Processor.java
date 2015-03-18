@@ -280,6 +280,15 @@ public class Processor extends Registerable {
 				}
 			}
 			
+			if (mode == 1) {
+				switch(cmd.substring(0, 2)) {
+					case "HT": {
+						setSi(1);
+						break;
+					}
+				}
+			}
+			
 			switch(cmd.substring(0, 2)) {
 				case "GO": {
 					int addr = buildAddress(cmd.substring(2, 5));
@@ -360,10 +369,6 @@ public class Processor extends Registerable {
 					cmdLength = 3;
 					setAr(buildAddress(String.valueOf(gr)));
 					setSi(3);
-					break;
-				}
-				case "HT": {
-					setSi(1);
 					break;
 				}
 				default: {

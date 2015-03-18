@@ -67,7 +67,7 @@ public class MachineController extends JFrame {
 		
 		setVisible(true);
 		
-		demo();
+		inputDemo();
 	}
 	
 	private void initializeMemoryTable() {
@@ -153,6 +153,23 @@ public class MachineController extends JFrame {
 		registersPanel.add(keyboard);
 		
 		return registersPanel;
+	}
+	
+	private void inputDemo() {
+		ram.occupyMemory(0, 0, "DV1");
+		ram.occupyMemory(0, 1, "IO1");
+		ram.occupyMemory(0, 2, "DV1");
+		ram.occupyMemory(0, 3, "LDSI");
+		ram.occupyMemory(0, 4, "CP020");
+		ram.occupyMemory(0, 5, "JE007");
+		ram.occupyMemory(0, 6, "GO003");
+		ram.occupyMemory(0, 7, "GV021");
+		ram.occupyMemory(0, 8, "SA");
+		ram.occupyMemory(0, 9, "XCHG");
+		ram.occupyMemory(1, 0, "SSI0");
+		ram.occupyMemory(1, 1, "GO003");
+		
+		ram.occupyMemory(2, 0, "4");
 	}
 	
 	private void demo() {

@@ -196,11 +196,11 @@ public class Processor extends Registerable {
 				
 				switch(cmd.substring(0, 2)) {
 					case "SA": {
-						chn.setSa(ar);
+						chn.setSa(gr);
 						return;
 					}
 					case "DA": {
-						chn.setDa(ar);
+						chn.setDa(gr);
 						return;
 					}
 					case "IO": {
@@ -247,13 +247,20 @@ public class Processor extends Registerable {
 				
 				switch(cmd.substring(0, 4)) {
 					case "XCHG": {
-						if (chn.getIo() == 0) { // output
-							int track = Math.floorDiv(chn.getSa(), 10);
-							int idx = chn.getSa() % 10;
-							chn.outputData(ram.getMemory(track, idx));
-						} else if (chn.getIo() == 1){ // input
-							System.out.println("input");
+						
+						if (chn.getDv() == 0) { // Hard drive
+							System.out.println("hard drive");
+						} else if (chn.getDv() == 1) {
+							if (chn.getIo() == 0) { // output
+								int track = Math.floorDiv(chn.getSa(), 10);
+								int idx = chn.getSa() % 10;
+								chn.outputData(ram.getMemory(track, idx));
+							} else if (chn.getIo() == 1){ // input
+								System.out.println(Math.floorDiv(chn.getSa(), 10) + "" + chn.getSa() % 10 + ":" + chn.getSavedInput());
+								ram.occupyMemory(Math.floorDiv(chn.getSa(), 10), chn.getSa() % 10, chn.getSavedInput());
+							}
 						}
+							
 						return;
 					}
 					case "SMOD": {

@@ -114,7 +114,7 @@ public class Processor extends Registerable {
 		return Integer.parseInt(ram.getMemory(sp / 10, sp % 10));
 	}
 	
-	private int buildAddress(String addr) {
+	private int buildAddress(String addr) throws OutOfVirtualMemoryException {
 		if (this.mode == 0) {
 			return Integer.parseInt(addr);
 		} else {
@@ -122,6 +122,9 @@ public class Processor extends Registerable {
 			int x = Math.floorDiv(trackNumber, 10);
 			int y = trackNumber % 10;
 			int vmTrackNumber = Integer.valueOf(ram.getMemory(ptr, x));
+			if (vmTrackNumber == 0) {
+				throw new OutOfVirtualMemoryException();
+			}
 			int readAddress = vmTrackNumber * 10 + y;
 			return readAddress;
 		}
@@ -347,9 +350,10 @@ public class Processor extends Registerable {
 				}
 			}
 			
+		} catch (OutOfVirtualMemoryException e) {
+			setPi(1);
 		} catch (Exception e) {
 			System.out.println(((mode == 0)? "Supervisor" : "User") + ": Invalid command");
-			//TODO: set si / pi
 			if (mode == 1) {
 				setPi(2);
 			}

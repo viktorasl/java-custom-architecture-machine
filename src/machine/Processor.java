@@ -144,6 +144,10 @@ public class Processor extends Registerable {
 		}
 	}
 	
+	private int physicalTrack(int virtualTrack) {
+		return Integer.valueOf(ram.getMemory(ptr, virtualTrack));
+	}
+	
 	private String getValueInAddress(int addr) {
 		int track = addr / 10;
 		int idx = addr % 10;
@@ -168,7 +172,6 @@ public class Processor extends Registerable {
 		
 		try {
 			if (mode == 0) {
-				
 				if (cmd.length() >= 4) {
 					switch(cmd.substring(0, 3)) {
 						case "STI": {
@@ -286,15 +289,6 @@ public class Processor extends Registerable {
 				}
 			}
 			
-			if (mode == 1) {
-				switch(cmd.substring(0, 2)) {
-					case "HT": {
-						setSi(1);
-						break;
-					}
-				}
-			}
-			
 			switch(cmd.substring(0, 2)) {
 				case "GO": {
 					int addr = buildAddress(cmd.substring(2, 5));
@@ -376,6 +370,28 @@ public class Processor extends Registerable {
 					setAr(buildAddress(String.valueOf(gr)));
 					setSi(3);
 					break;
+				}
+				case "RM": {
+					if (mode == 1) {
+						int trackNum = physicalTrack(Integer.valueOf(cmd.substring(2, 3)));
+						setAr(trackNum);
+						setPi(3);
+						break;
+					}
+				}
+				case "FM": {
+					if (mode == 1) {
+						int trackNum = physicalTrack(Integer.valueOf(cmd.substring(2, 3)));
+						setAr(trackNum);
+						setPi(4);
+						break;
+					}
+				}
+				case "HT": {
+					if (mode == 1) {
+						setSi(1);
+						break;
+					}
 				}
 				default: {
 					throw new Exception("Unknown command");

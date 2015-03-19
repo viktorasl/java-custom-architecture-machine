@@ -35,7 +35,7 @@ public class MachineController extends JFrame {
 		ram = new OperativeMemory(100, 10);
 		printer = new Printer(3, 30);
 		keyboard = new Keyboard(5);
-		chn = new ChannelSystem(new HardDrive(), printer, keyboard);
+		chn = new ChannelSystem(new HardDrive(100, 10), printer, keyboard);
 		cpu = new Processor(ram, chn);
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
@@ -43,7 +43,8 @@ public class MachineController extends JFrame {
 		setTitle("Real Machine");
 		setSize(500, 300);
 		
-		initializeMemoryTable();
+		getContentPane().add(initializeMemoryTable(ram));
+		getContentPane().add(initializeMemoryTable(ram));
 		
 		JPanel registersPanel = new JPanel();
 		registersPanel.setLayout(new BoxLayout(registersPanel, BoxLayout.PAGE_AXIS));
@@ -70,12 +71,11 @@ public class MachineController extends JFrame {
 		inputDemo();
 	}
 	
-	private void initializeMemoryTable() {
+	private JScrollPane initializeMemoryTable(MemoryListable memory) {
 		String[] columnNames = {"Address", "Content"};
-		final DefaultTableModel table = new OperativeMemoryTable(columnNames, ram);
+		final DefaultTableModel table = new OperativeMemoryTable(columnNames, memory);
 		final JTable dataTable = new JTable(table);
 		JScrollPane scrollPane = new JScrollPane(dataTable);
-		getContentPane().add(scrollPane);
 		
 		ram.addOperativeMemoryChangeListener(new OperativeMemoryChangeListener() {
 			
@@ -93,6 +93,8 @@ public class MachineController extends JFrame {
 			}
 			
 		});
+		
+		return scrollPane;
 	}
 	
 	private JPanel initializeRegisters() {

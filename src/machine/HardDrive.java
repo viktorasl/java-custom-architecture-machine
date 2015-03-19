@@ -1,5 +1,9 @@
 package machine;
 
-public class HardDrive {
+public class HardDrive extends MemoryListable {
+
+	public HardDrive(int tracksCount, int trackSize) {
+		super(tracksCount, trackSize);
+	}
 
 }

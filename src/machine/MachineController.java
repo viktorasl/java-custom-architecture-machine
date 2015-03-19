@@ -72,7 +72,7 @@ public class MachineController extends JFrame {
 		
 		setVisible(true);
 		
-		inputDemo();
+		hardDriveDemo();
 	}
 	
 	private JScrollPane initializeMemoryTable(MemoryListable memory) {
@@ -193,6 +193,7 @@ public class MachineController extends JFrame {
 	}
 	
 	private void hardDriveDemo() {
+		// Write data to HDD
 		ram.occupyMemory(0, 0, "DV0");
 		ram.occupyMemory(0, 1, "IO0");
 		ram.occupyMemory(0, 2, "GV013");
@@ -203,6 +204,15 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(0, 7, "GV010");
 		ram.occupyMemory(0, 8, "DA");
 		ram.occupyMemory(0, 9, "XCHG");
+		
+		// Read data from HDD
+		ram.occupyMemory(1, 0, "DV0");
+		ram.occupyMemory(1, 1, "IO1");
+		ram.occupyMemory(1, 2, "GV022");
+		ram.occupyMemory(1, 3, "SA");
+		ram.occupyMemory(1, 4, "GV010");
+		ram.occupyMemory(1, 5, "DA");
+		ram.occupyMemory(1, 6, "XCHG");
 		
 		ram.occupyMemory(2, 0, "4");
 	}

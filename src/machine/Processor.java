@@ -252,7 +252,7 @@ public class Processor extends Registerable {
 						
 						if (chn.getDv() == 0) { // Hard drive
 							int daTrack = Math.floorDiv(chn.getDa(), 10);
-							int daIdx = chn.getSa() % 10;
+							int daIdx = chn.getDa() % 10;
 							
 							if (chn.getIo() == 0) { // Output
 								chn.writeToExternalDrive(daTrack, daIdx, ram.getMemory(track, idx));

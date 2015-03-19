@@ -11,5 +11,10 @@ public class OperativeMemory extends MemoryListable {
 			l.memoryExecuted(track, idx);
 		}
 	}
+
+	@Override
+	public String getTitle() {
+		return "Operative Memory";
+	}
 	
 }

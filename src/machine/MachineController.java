@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class MachineController extends JFrame {
@@ -42,6 +44,7 @@ public class MachineController extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Machine");
 		setSize(1200, 600);
+		setResizable(false);
 		
 		getContentPane().add(initializeMemoryTable(ram));
 		getContentPane().add(initializeMemoryTable(ram));
@@ -77,6 +80,11 @@ public class MachineController extends JFrame {
 		final JTable dataTable = new JTable(table);
 		JScrollPane scrollPane = new JScrollPane(dataTable);
 		
+		scrollPane.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),
+                memory.getTitle(),
+                TitledBorder.CENTER,
+                TitledBorder.TOP));
+		
 		ram.addOperativeMemoryChangeListener(new OperativeMemoryChangeListener() {
 			
 			@Override
@@ -99,6 +107,11 @@ public class MachineController extends JFrame {
 	
 	private JPanel initializeRegisters() {
 		JPanel cpuRegistersPanel = new JPanel();
+		cpuRegistersPanel.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),
+                "Processor",
+                TitledBorder.CENTER,
+                TitledBorder.TOP));
+		
 		final Map<ProcessorRegister, JTextField> registersMap = new HashMap<ProcessorRegister, JTextField>();
 		
 		for (ProcessorRegister reg : ProcessorRegister.values()) {
@@ -127,6 +140,10 @@ public class MachineController extends JFrame {
 	
 	private JPanel initializeChannelSystem() {
 		JPanel registersPanel = new JPanel();
+		registersPanel.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),
+                "Channel System",
+                TitledBorder.CENTER,
+                TitledBorder.TOP));
 		
 		final Map<ChannelSystemRegister, JTextField> registersMap = new HashMap<ChannelSystemRegister, JTextField>();
 		

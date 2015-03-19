@@ -3,7 +3,7 @@ package machine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryListable {
+public abstract class MemoryListable {
 	
 	protected int trackSize;
 	protected int tracksCount;
@@ -53,5 +53,7 @@ public class MemoryListable {
 	public int getTotalSize() {
 		return memory.length;
 	}
+	
+	public abstract String getTitle();
 	
 }

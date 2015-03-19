@@ -37,7 +37,8 @@ public class MachineController extends JFrame {
 		ram = new OperativeMemory(100, 10);
 		printer = new Printer(3, 30);
 		keyboard = new Keyboard(5);
-		chn = new ChannelSystem(new HardDrive(100, 10), printer, keyboard);
+		HardDrive hdd = new HardDrive(100, 10);
+		chn = new ChannelSystem(hdd, printer, keyboard);
 		cpu = new Processor(ram, chn);
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
@@ -47,7 +48,7 @@ public class MachineController extends JFrame {
 		setResizable(false);
 		
 		getContentPane().add(initializeMemoryTable(ram));
-		getContentPane().add(initializeMemoryTable(ram));
+		getContentPane().add(initializeMemoryTable(hdd));
 		
 		JPanel registersPanel = new JPanel();
 		registersPanel.setLayout(new BoxLayout(registersPanel, BoxLayout.PAGE_AXIS));
@@ -85,18 +86,18 @@ public class MachineController extends JFrame {
                 TitledBorder.CENTER,
                 TitledBorder.TOP));
 		
-		ram.addOperativeMemoryChangeListener(new OperativeMemoryChangeListener() {
+		memory.addOperativeMemoryChangeListener(new OperativeMemoryChangeListener() {
 			
 			@Override
 			public void memoryChanged(int track, int idx, String value) {
-				int i = track * ram.getTrackSize() + idx;
+				int i = track * memory.getTrackSize() + idx;
 				table.removeRow(i);
 				table.insertRow(i, new Object[]{i, value});
 			}
 
 			@Override
 			public void memoryExecuted(int track, int idx) {
-				int row = track * ram.getTrackSize() + idx;
+				int row = track * memory.getTrackSize() + idx;
 				dataTable.changeSelection(row, 0, false, false);
 			}
 			

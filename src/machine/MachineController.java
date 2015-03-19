@@ -192,6 +192,21 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(2, 0, "4");
 	}
 	
+	private void hardDriveDemo() {
+		ram.occupyMemory(0, 0, "DV0");
+		ram.occupyMemory(0, 1, "IO0");
+		ram.occupyMemory(0, 2, "GV013");
+		ram.occupyMemory(0, 3, "AD020");
+		ram.occupyMemory(0, 4, "MM021");
+		ram.occupyMemory(0, 5, "GV021");
+		ram.occupyMemory(0, 6, "SA");
+		ram.occupyMemory(0, 7, "GV010");
+		ram.occupyMemory(0, 8, "DA");
+		ram.occupyMemory(0, 9, "XCHG");
+		
+		ram.occupyMemory(2, 0, "4");
+	}
+	
 	private void demo() {
 		
 		// Interrupt flag compares

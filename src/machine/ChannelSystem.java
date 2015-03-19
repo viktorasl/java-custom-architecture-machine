@@ -9,10 +9,13 @@ public class ChannelSystem extends Registerable {
 	
 	private String savedInput;
 	private Printer printer;
+	private HardDrive hdd;
 	private ChannelSystemInputProtocol protocol;
 	
 	public ChannelSystem (HardDrive hdd, Printer printer, Keyboard keyboard) {
 		this.printer = printer;
+		this.hdd = hdd;
+		
 		keyboard.addKeyboardProtocol(new KeyboardProtocol() {
 			
 			@Override
@@ -92,6 +95,10 @@ public class ChannelSystem extends Registerable {
 
 	public void setSavedInput(String savedInput) {
 		this.savedInput = savedInput;
+	}
+	
+	public void writeToExternalDrive(int track, int idx, String value) {
+		hdd.occupyMemory(track, idx, value);
 	}
 	
 }

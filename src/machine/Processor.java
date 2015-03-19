@@ -247,13 +247,19 @@ public class Processor extends Registerable {
 				
 				switch(cmd.substring(0, 4)) {
 					case "XCHG": {
+						int track = Math.floorDiv(chn.getSa(), 10);
+						int idx = chn.getSa() % 10;
 						
 						if (chn.getDv() == 0) { // Hard drive
-							System.out.println("hard drive");
-						} else if (chn.getDv() == 1) {
-							int track = Math.floorDiv(chn.getSa(), 10);
-							int idx = chn.getSa() % 10;
+							int daTrack = Math.floorDiv(chn.getDa(), 10);
+							int daIdx = chn.getSa() % 10;
 							
+							if (chn.getIo() == 0) { // Output
+								chn.writeToExternalDrive(daTrack, daIdx, ram.getMemory(track, idx));
+							} else if (chn.getIo() == 1){ // Input
+								
+							}
+						} else if (chn.getDv() == 1) {
 							if (chn.getIo() == 0) { // Printer
 								chn.outputData(ram.getMemory(track, idx));
 							} else if (chn.getIo() == 1){ // Keyboard

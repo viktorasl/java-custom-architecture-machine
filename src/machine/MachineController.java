@@ -40,8 +40,8 @@ public class MachineController extends JFrame {
 		
 		getContentPane().setLayout(new GridLayout(1, 3));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Real Machine");
-		setSize(500, 300);
+		setTitle("Machine");
+		setSize(1200, 600);
 		
 		getContentPane().add(initializeMemoryTable(ram));
 		getContentPane().add(initializeMemoryTable(ram));

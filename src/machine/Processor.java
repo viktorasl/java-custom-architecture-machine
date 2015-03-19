@@ -257,7 +257,7 @@ public class Processor extends Registerable {
 							if (chn.getIo() == 0) { // Output
 								chn.writeToExternalDrive(daTrack, daIdx, ram.getMemory(track, idx));
 							} else if (chn.getIo() == 1){ // Input
-								
+								ram.occupyMemory(track, idx, chn.readExternalDrive(daTrack, daIdx));
 							}
 						} else if (chn.getDv() == 1) {
 							if (chn.getIo() == 0) { // Printer

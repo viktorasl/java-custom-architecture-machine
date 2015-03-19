@@ -101,4 +101,8 @@ public class ChannelSystem extends Registerable {
 		hdd.occupyMemory(track, idx, value);
 	}
 	
+	public String readExternalDrive(int track, int idx) {
+		return hdd.getMemory(track, idx);
+	}
+	
 }

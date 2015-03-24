@@ -72,7 +72,7 @@ public class MachineController extends JFrame {
 		
 		setVisible(true);
 		
-		hardDriveDemo();
+		demo();
 	}
 	
 	private JScrollPane initializeMemoryTable(MemoryListable memory) {
@@ -236,7 +236,7 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(95, 7, "GO960");
 		
 		// Checking I/O
-		ram.occupyMemory(96, 0, "DV0");
+		ram.occupyMemory(96, 0, "DV1");
 		ram.occupyMemory(96, 1, "LDSI");
 		
 		// Output handler
@@ -253,12 +253,13 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(97, 3, "GO980");
 		
 		// I/O handler
-		ram.occupyMemory(98, 0, "SA");
-		ram.occupyMemory(98, 1, "XCHG");
+		ram.occupyMemory(98, 0, "LDAR");
+		ram.occupyMemory(98, 1, "SA");
+		ram.occupyMemory(98, 2, "XCHG");
 		
-		ram.occupyMemory(98, 2, "SSI0");
-		ram.occupyMemory(98, 3, "SPI0");
-		ram.occupyMemory(98, 4, "RESTR");
+		ram.occupyMemory(98, 3, "SSI0");
+		ram.occupyMemory(98, 4, "SPI0");
+		ram.occupyMemory(98, 5, "RESTR");
 
 		// Real machine setup
 		ram.occupyMemory(0, 0, "IH950");
@@ -275,7 +276,7 @@ public class MachineController extends JFrame {
 		ram.occupyMemory(1, 3, "16");
 		
 		// Program
-		ram.occupyMemory(13, 0, "CL026");
+		ram.occupyMemory(13, 0, "FM3");
 		ram.occupyMemory(13, 1, "xxxxx");
 		ram.occupyMemory(13, 2, "MM021");
 		ram.occupyMemory(13, 3, "GV099");
